@@ -61,15 +61,21 @@ fn m_helen_dispatch_end_to_end() {
     assert!(LamportKeyPair::verify(&kp.public_key, msg, &sig));
 
     let quorum = QuorumAuth::new(vec![
-        VaultSignature { role: SignerRole::LDCapital, signature_bytes: vec![0xAA; 64] },
-        VaultSignature { role: SignerRole::BitGoTrust, signature_bytes: vec![0xBB; 64] },
+        VaultSignature {
+            role: SignerRole::LDCapital,
+            signature_bytes: vec![0xAA; 64],
+        },
+        VaultSignature {
+            role: SignerRole::BitGoTrust,
+            signature_bytes: vec![0xBB; 64],
+        },
     ])
     .expect("standard LDCapital + BitGo quorum");
     assert_eq!(quorum.signer_count(), 2);
 
     let proposal = ValueMovementProposal {
         asset_id: "RWA-M-HELEN-001".into(),
-        amount_cents: 4_960_000_00,
+        amount_cents: 496_000_000,
         destination_address: "r9xLDXEngineVault110293".into(),
         compliance_cleared: true,
         bitgo_signatures: quorum.signer_count() as u8,

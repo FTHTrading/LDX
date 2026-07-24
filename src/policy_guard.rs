@@ -56,7 +56,7 @@ pub struct PolicyGuardEngine;
 /// Value: $25,000,000.00 (twenty-five million dollars). Matches LDX operator practice
 /// for hospitality construction-draw disbursements; larger movements require explicit
 /// operator configuration and secondary human approval outside PolicyGuard.
-pub const DEFAULT_CEILING_CENTS: u64 = 25_000_000_00;
+pub const DEFAULT_CEILING_CENTS: u64 = 2_500_000_000;
 
 impl PolicyGuardEngine {
     /// Evaluate a proposal. Returns `Ok(())` when every gate passes; `Err(reason)` otherwise.
@@ -125,7 +125,9 @@ impl PolicyGuardEngine {
 /// Minimal sanity check on destination address format. Blocks obviously empty / short entries.
 fn is_plausible_destination(addr: &str) -> bool {
     let t = addr.trim();
-    if t.len() < 8 { return false; }
+    if t.len() < 8 {
+        return false;
+    }
     // XRPL classic (r...), Stellar (G...), EVM (0x...), synthetic-IBAN (starts with letter)
     let head = t.chars().next().unwrap_or(' ');
     head.is_ascii_alphabetic() || t.starts_with("0x")
@@ -138,7 +140,7 @@ mod tests {
     fn base_proposal() -> ValueMovementProposal {
         ValueMovementProposal {
             asset_id: "RWA-M-HELEN-001".into(),
-            amount_cents: 4_960_000_00,
+            amount_cents: 496_000_000,
             destination_address: "r9xLDXEngineVault110293".into(),
             compliance_cleared: true,
             bitgo_signatures: 2,
@@ -155,28 +157,40 @@ mod tests {
     fn rejects_uncleared_compliance() {
         let mut p = base_proposal();
         p.compliance_cleared = false;
-        assert_eq!(PolicyGuardEngine::evaluate(&p), Err(PolicyRejection::ComplianceFailed));
+        assert_eq!(
+            PolicyGuardEngine::evaluate(&p),
+            Err(PolicyRejection::ComplianceFailed)
+        );
     }
 
     #[test]
     fn rejects_insufficient_quorum() {
         let mut p = base_proposal();
         p.bitgo_signatures = 1;
-        assert_eq!(PolicyGuardEngine::evaluate(&p), Err(PolicyRejection::CustodyQuorumInsufficient));
+        assert_eq!(
+            PolicyGuardEngine::evaluate(&p),
+            Err(PolicyRejection::CustodyQuorumInsufficient)
+        );
     }
 
     #[test]
     fn rejects_amount_over_ceiling() {
         let mut p = base_proposal();
         p.amount_cents = DEFAULT_CEILING_CENTS + 1;
-        assert_eq!(PolicyGuardEngine::evaluate(&p), Err(PolicyRejection::AmountExceedsCeiling));
+        assert_eq!(
+            PolicyGuardEngine::evaluate(&p),
+            Err(PolicyRejection::AmountExceedsCeiling)
+        );
     }
 
     #[test]
     fn rejects_malformed_destination() {
         let mut p = base_proposal();
         p.destination_address = "".into();
-        assert_eq!(PolicyGuardEngine::evaluate(&p), Err(PolicyRejection::DestinationMalformed));
+        assert_eq!(
+            PolicyGuardEngine::evaluate(&p),
+            Err(PolicyRejection::DestinationMalformed)
+        );
     }
 
     #[test]
@@ -190,7 +204,10 @@ mod tests {
     fn ceiling_boundary_is_inclusive() {
         let mut p = base_proposal();
         p.amount_cents = DEFAULT_CEILING_CENTS;
-        assert!(PolicyGuardEngine::evaluate(&p).is_ok(), "exactly at ceiling should pass");
+        assert!(
+            PolicyGuardEngine::evaluate(&p).is_ok(),
+            "exactly at ceiling should pass"
+        );
     }
 
     #[test]

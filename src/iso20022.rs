@@ -104,7 +104,7 @@ mod tests {
             "MSG-001",
             "US33LDXX0000000000000001",
             "US33BITG0000000000000001",
-            25_000_000_00,
+            2_500_000_000,
             "USD",
             "E2E-M-HELEN-DRAW-001",
         )
@@ -121,7 +121,7 @@ mod tests {
             transaction_code: 22,
             receiving_dfi_routing: "061000104".into(),
             receiving_account: "0000000001".into(),
-            amount_cents: 4_960_000_00,
+            amount_cents: 496_000_000,
             individual_id: "M-HELEN-001".into(),
             trace_number: "061000104000001".into(),
         };

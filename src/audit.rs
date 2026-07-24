@@ -146,20 +146,27 @@ fn canonicalize(c: &Canonical) -> String {
         r#"{{"action":"{}","actor":"{}","payload_json":{},"seq":{},"target":{},"timestamp_epoch_secs":{}}}"#,
         c.action,
         c.actor,
-        c.payload_json.map(quote_json_str).unwrap_or_else(|| "null".into()),
+        c.payload_json
+            .map(quote_json_str)
+            .unwrap_or_else(|| "null".into()),
         c.seq,
-        c.target.map(quote_json_str).unwrap_or_else(|| "null".into()),
+        c.target
+            .map(quote_json_str)
+            .unwrap_or_else(|| "null".into()),
         c.timestamp_epoch_secs,
     )
 }
 
 fn quote_json_str(s: &str) -> String {
-    let escaped: String = s.chars().map(|c| match c {
-        '\\' => "\\\\".to_string(),
-        '"'  => "\\\"".to_string(),
-        c if (c as u32) < 0x20 => format!("\\u{:04x}", c as u32),
-        c    => c.to_string(),
-    }).collect();
+    let escaped: String = s
+        .chars()
+        .map(|c| match c {
+            '\\' => "\\\\".to_string(),
+            '"' => "\\\"".to_string(),
+            c if (c as u32) < 0x20 => format!("\\u{:04x}", c as u32),
+            c => c.to_string(),
+        })
+        .collect();
     format!("\"{escaped}\"")
 }
 
@@ -184,8 +191,18 @@ mod tests {
     #[test]
     fn appends_form_valid_chain() {
         let mut c = AuditChain::new();
-        c.append("operator", "deal.opened", Some("RWA-M-HELEN-001".into()), None);
-        c.append("policy_guard", "dispatch.approved", Some("RWA-M-HELEN-001".into()), None);
+        c.append(
+            "operator",
+            "deal.opened",
+            Some("RWA-M-HELEN-001".into()),
+            None,
+        );
+        c.append(
+            "policy_guard",
+            "dispatch.approved",
+            Some("RWA-M-HELEN-001".into()),
+            None,
+        );
         c.append("bitgo", "vault.arrangement.executed", None, None);
         assert_eq!(c.len(), 3);
         assert!(c.verify().is_ok());
@@ -194,12 +211,21 @@ mod tests {
     #[test]
     fn tampered_entry_detected() {
         let mut c = AuditChain::new();
-        c.append("operator", "deal.opened", Some("RWA-M-HELEN-001".into()), None);
+        c.append(
+            "operator",
+            "deal.opened",
+            Some("RWA-M-HELEN-001".into()),
+            None,
+        );
         c.append("operator", "diligence.started", None, None);
         // Mutate an entry in place
         c.entries[0].action = "diligence.completed".to_string();
         let r = c.verify();
-        assert_eq!(r, Err(1), "chain break must be detected at the tampered entry");
+        assert_eq!(
+            r,
+            Err(1),
+            "chain break must be detected at the tampered entry"
+        );
     }
 
     #[test]

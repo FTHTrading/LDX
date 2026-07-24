@@ -7,7 +7,10 @@ use ldx::bitgo_vault::{QuorumAuth, QuorumError, SignerRole, VaultSignature};
 use ldx::color_terminal::{log_status, SystemStatus};
 
 fn sig(role: SignerRole) -> VaultSignature {
-    VaultSignature { role, signature_bytes: vec![0u8; 64] }
+    VaultSignature {
+        role,
+        signature_bytes: vec![0u8; 64],
+    }
 }
 
 fn try_quorum(label: &str, sigs: Vec<VaultSignature>) {
@@ -36,13 +39,35 @@ fn try_quorum(label: &str, sigs: Vec<VaultSignature>) {
 fn main() {
     println!("\x1b[1;36m─── LDX Example · BitGo 2-of-3 Vault Quorum Invariants ───\x1b[0m\n");
 
-    try_quorum("LDCapital + BitGo",         vec![sig(SignerRole::LDCapital), sig(SignerRole::BitGoTrust)]);
-    try_quorum("LDCapital + Recovery",      vec![sig(SignerRole::LDCapital), sig(SignerRole::RecoveryKey)]);
-    try_quorum("BitGo + Recovery",          vec![sig(SignerRole::BitGoTrust), sig(SignerRole::RecoveryKey)]);
-    try_quorum("All three",                 vec![sig(SignerRole::LDCapital), sig(SignerRole::BitGoTrust), sig(SignerRole::RecoveryKey)]);
+    try_quorum(
+        "LDCapital + BitGo",
+        vec![sig(SignerRole::LDCapital), sig(SignerRole::BitGoTrust)],
+    );
+    try_quorum(
+        "LDCapital + Recovery",
+        vec![sig(SignerRole::LDCapital), sig(SignerRole::RecoveryKey)],
+    );
+    try_quorum(
+        "BitGo + Recovery",
+        vec![sig(SignerRole::BitGoTrust), sig(SignerRole::RecoveryKey)],
+    );
+    try_quorum(
+        "All three",
+        vec![
+            sig(SignerRole::LDCapital),
+            sig(SignerRole::BitGoTrust),
+            sig(SignerRole::RecoveryKey),
+        ],
+    );
     println!();
-    try_quorum("Only LDCapital",            vec![sig(SignerRole::LDCapital)]);
-    try_quorum("Only BitGo",                vec![sig(SignerRole::BitGoTrust)]);
-    try_quorum("Two BitGo copies",          vec![sig(SignerRole::BitGoTrust), sig(SignerRole::BitGoTrust)]);
-    try_quorum("Two LDCapital copies",      vec![sig(SignerRole::LDCapital), sig(SignerRole::LDCapital)]);
+    try_quorum("Only LDCapital", vec![sig(SignerRole::LDCapital)]);
+    try_quorum("Only BitGo", vec![sig(SignerRole::BitGoTrust)]);
+    try_quorum(
+        "Two BitGo copies",
+        vec![sig(SignerRole::BitGoTrust), sig(SignerRole::BitGoTrust)],
+    );
+    try_quorum(
+        "Two LDCapital copies",
+        vec![sig(SignerRole::LDCapital), sig(SignerRole::LDCapital)],
+    );
 }

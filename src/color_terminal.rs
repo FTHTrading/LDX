@@ -95,7 +95,10 @@ mod tests {
             SystemStatus::SecurityReject,
             SystemStatus::QuantumVerified,
         ] {
-            assert!(s.ansi_prefix().ends_with("\x1b[0m"), "{s:?} must reset ANSI");
+            assert!(
+                s.ansi_prefix().ends_with("\x1b[0m"),
+                "{s:?} must reset ANSI"
+            );
         }
     }
 
@@ -103,7 +106,11 @@ mod tests {
     fn labels_are_uppercase_no_brackets() {
         assert_eq!(SystemStatus::Live.label(), "LIVE");
         assert_eq!(SystemStatus::QuantumVerified.label(), "LAMPORT");
-        for s in [SystemStatus::PolicyGuard, SystemStatus::WarningGate, SystemStatus::SecurityReject] {
+        for s in [
+            SystemStatus::PolicyGuard,
+            SystemStatus::WarningGate,
+            SystemStatus::SecurityReject,
+        ] {
             assert!(!s.label().contains('['));
             assert_eq!(s.label(), s.label().to_uppercase());
         }

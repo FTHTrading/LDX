@@ -59,7 +59,10 @@ impl LamportKeyPair {
             public_key.push([pub_0, pub_1]);
         }
 
-        Self { public_key, private_key }
+        Self {
+            public_key,
+            private_key,
+        }
     }
 
     /// Generate a Lamport keypair from operator-supplied entropy.
@@ -92,7 +95,10 @@ impl LamportKeyPair {
             public_key.push([pub_0, pub_1]);
         }
 
-        Self { public_key, private_key }
+        Self {
+            public_key,
+            private_key,
+        }
     }
 
     /// Sign `message`. Consumes one-time cryptographic material — the resulting signature
@@ -114,11 +120,7 @@ impl LamportKeyPair {
     /// Verify `signature` for `message` against `public_key`.
     /// Constant-time-per-bit hashing; returns `true` iff every bit's signature secret hashes
     /// to the corresponding public-key entry.
-    pub fn verify(
-        public_key: &[[Vec<u8>; 2]],
-        message: &[u8],
-        signature: &[Vec<u8>],
-    ) -> bool {
+    pub fn verify(public_key: &[[Vec<u8>; 2]], message: &[u8], signature: &[Vec<u8>]) -> bool {
         if public_key.len() != 256 || signature.len() != 256 {
             return false;
         }
@@ -153,7 +155,11 @@ mod tests {
     fn tampered_message_fails_verification() {
         let kp = LamportKeyPair::generate();
         let sig = kp.sign(b"AUTHORIZED_DISPURSEMENT_001");
-        assert!(!LamportKeyPair::verify(&kp.public_key, b"AUTHORIZED_DISPURSEMENT_002", &sig));
+        assert!(!LamportKeyPair::verify(
+            &kp.public_key,
+            b"AUTHORIZED_DISPURSEMENT_002",
+            &sig
+        ));
     }
 
     #[test]
@@ -193,6 +199,9 @@ mod tests {
         let seed = [42u8; 64];
         let kp_a = LamportKeyPair::generate_secure(&seed);
         let kp_b = LamportKeyPair::generate_secure(&seed);
-        assert_eq!(kp_a.public_key, kp_b.public_key, "same seed → same public key");
+        assert_eq!(
+            kp_a.public_key, kp_b.public_key,
+            "same seed → same public key"
+        );
     }
 }

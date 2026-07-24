@@ -108,12 +108,18 @@ mod tests {
     use super::*;
 
     fn sig(role: SignerRole) -> VaultSignature {
-        VaultSignature { role, signature_bytes: vec![0u8; 64] }
+        VaultSignature {
+            role,
+            signature_bytes: vec![0u8; 64],
+        }
     }
 
     #[test]
     fn accepts_ldcapital_plus_bitgo() {
-        let q = QuorumAuth::new(vec![sig(SignerRole::LDCapital), sig(SignerRole::BitGoTrust)]);
+        let q = QuorumAuth::new(vec![
+            sig(SignerRole::LDCapital),
+            sig(SignerRole::BitGoTrust),
+        ]);
         assert!(q.is_ok());
         assert_eq!(q.unwrap().signer_count(), 2);
     }
@@ -123,7 +129,8 @@ mod tests {
         assert!(QuorumAuth::new(vec![
             sig(SignerRole::LDCapital),
             sig(SignerRole::RecoveryKey),
-        ]).is_ok());
+        ])
+        .is_ok());
     }
 
     #[test]
@@ -131,7 +138,8 @@ mod tests {
         assert!(QuorumAuth::new(vec![
             sig(SignerRole::BitGoTrust),
             sig(SignerRole::RecoveryKey),
-        ]).is_ok());
+        ])
+        .is_ok());
     }
 
     #[test]
@@ -163,11 +171,11 @@ mod tests {
 
     #[test]
     fn rejects_duplicate_role_non_bitgo() {
-        let r = QuorumAuth::new(vec![
-            sig(SignerRole::LDCapital),
-            sig(SignerRole::LDCapital),
-        ]);
-        assert!(matches!(r, Err(QuorumError::DuplicateRole(SignerRole::LDCapital))));
+        let r = QuorumAuth::new(vec![sig(SignerRole::LDCapital), sig(SignerRole::LDCapital)]);
+        assert!(matches!(
+            r,
+            Err(QuorumError::DuplicateRole(SignerRole::LDCapital))
+        ));
     }
 
     #[test]
@@ -176,11 +184,15 @@ mod tests {
             sig(SignerRole::RecoveryKey),
             sig(SignerRole::LDCapital),
             sig(SignerRole::BitGoTrust),
-        ]).unwrap();
-        assert_eq!(q.signer_roles(), vec![
-            SignerRole::LDCapital,
-            SignerRole::BitGoTrust,
-            SignerRole::RecoveryKey,
-        ]);
+        ])
+        .unwrap();
+        assert_eq!(
+            q.signer_roles(),
+            vec![
+                SignerRole::LDCapital,
+                SignerRole::BitGoTrust,
+                SignerRole::RecoveryKey,
+            ]
+        );
     }
 }

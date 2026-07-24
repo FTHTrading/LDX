@@ -74,7 +74,10 @@ pub struct Deal {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum StageError {
     /// Attempted to jump ahead — the requested `target` is not adjacent to the current stage.
-    NonAdjacentTransition { from: PipelineStage, to: PipelineStage },
+    NonAdjacentTransition {
+        from: PipelineStage,
+        to: PipelineStage,
+    },
     /// One or more blockers must be cleared before advancing.
     BlockersRemaining { count: usize, first: String },
     /// Attempted to advance from a terminal stage.
@@ -83,7 +86,12 @@ pub enum StageError {
 
 impl Deal {
     /// Create a new deal at the `Intake` stage.
-    pub fn intake(deal_id: impl Into<String>, name: impl Into<String>, sponsor: impl Into<String>, value_cents: u64) -> Self {
+    pub fn intake(
+        deal_id: impl Into<String>,
+        name: impl Into<String>,
+        sponsor: impl Into<String>,
+        value_cents: u64,
+    ) -> Self {
         Self {
             deal_id: deal_id.into(),
             name: name.into(),
@@ -105,7 +113,11 @@ impl Deal {
 
     /// Mark a blocker as cleared by name (first match).
     pub fn clear_blocker(&mut self, name: &str) -> bool {
-        if let Some(b) = self.blockers.iter_mut().find(|b| b.name == name && !b.cleared) {
+        if let Some(b) = self
+            .blockers
+            .iter_mut()
+            .find(|b| b.name == name && !b.cleared)
+        {
             b.cleared = true;
             true
         } else {
@@ -120,12 +132,18 @@ impl Deal {
     /// Advance the deal to `target`. Only permitted when `target` is the immediate successor
     /// of the current stage AND all open blockers at the current stage are cleared.
     pub fn advance_to(&mut self, target: PipelineStage) -> Result<PipelineStage, StageError> {
-        let expected_predecessor = target.predecessor().ok_or(StageError::NonAdjacentTransition {
-            from: self.stage,
-            to: target,
-        })?;
+        let expected_predecessor =
+            target
+                .predecessor()
+                .ok_or(StageError::NonAdjacentTransition {
+                    from: self.stage,
+                    to: target,
+                })?;
         if self.stage != expected_predecessor {
-            return Err(StageError::NonAdjacentTransition { from: self.stage, to: target });
+            return Err(StageError::NonAdjacentTransition {
+                from: self.stage,
+                to: target,
+            });
         }
         let open = self.open_blockers();
         if !open.is_empty() {
@@ -147,10 +165,11 @@ pub fn seed_m_helen() -> Deal {
         "RWA-M-HELEN-001",
         "M Helen Hotel LLC — 90-key SpringHill Suites by Marriott + Waterpark + EV, Helen GA",
         "Niraj Sheth (40% owner, Chief Manager) — GA #24229189",
-        27_500_000_00, // $27.5M as-complete appraisal
+        2_750_000_000, // $27.5M as-complete appraisal
     );
     // Move through Intake → Diligence with no blockers (both cleared historically)
-    d.advance_to(PipelineStage::Diligence).expect("intake→diligence should always pass at seed time");
+    d.advance_to(PipelineStage::Diligence)
+        .expect("intake→diligence should always pass at seed time");
     // At Diligence, the real blocking issues are added.
     d.add_blocker(
         "budget_discrepancy_4_96M",
@@ -186,7 +205,10 @@ mod tests {
     fn cannot_advance_with_open_blockers() {
         let mut d = seed_m_helen();
         let r = d.advance_to(PipelineStage::Structuring);
-        assert!(matches!(r, Err(StageError::BlockersRemaining { count: 2, .. })));
+        assert!(matches!(
+            r,
+            Err(StageError::BlockersRemaining { count: 2, .. })
+        ));
     }
 
     #[test]
@@ -202,7 +224,7 @@ mod tests {
 
     #[test]
     fn full_lifecycle_walk() {
-        let mut d = Deal::intake("X", "Test Deal", "Test Sponsor", 100_00);
+        let mut d = Deal::intake("X", "Test Deal", "Test Sponsor", 10_000);
         assert_eq!(d.stage, PipelineStage::Intake);
         for target in [
             PipelineStage::Diligence,
