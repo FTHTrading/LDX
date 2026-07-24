@@ -1,0 +1,30 @@
+# Rust artifacts
+/target
+**/*.rs.bk
+Cargo.lock.bak
+
+# IDE / editor
+*.user
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Coverage / bench output
+tarpaulin-report.*
+criterion/
+flamegraph.svg
+perf.data
+perf.data.old
+
+# Local operator scratch
+scratch/
+tmp/
+*.log
