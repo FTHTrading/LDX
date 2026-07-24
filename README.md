@@ -4,6 +4,10 @@
 [![Crypto](https://img.shields.io/badge/crypto-Lamport%20Post--Quantum-7B2CBF?style=for-the-badge)](https://github.com/FTHTrading/LDX)
 [![License](https://img.shields.io/badge/license-Proprietary-00E5FF?style=for-the-badge)](./LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.80%2B-orange?style=for-the-badge&logo=rust)](https://www.rust-lang.org)
+[![Site](https://img.shields.io/badge/site-fthtrading.github.io%2FLDX-2E568F?style=for-the-badge&logo=github)](https://fthtrading.github.io/LDX/)
+
+> **📖 Public site & learning center:** https://fthtrading.github.io/LDX/  
+> Client status page · client letter · interactive Lexicon Academy · outreach templates · brand vault.
 
 **LDX (Lamport Digital Exchange)** is a zero-hallucination, deterministic clearing engine for
 tokenized Real-World Assets (RWAs), energy tax-equity flips, and institutional private credit.
