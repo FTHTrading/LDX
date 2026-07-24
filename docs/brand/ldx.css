@@ -1,0 +1,202 @@
+/*
+ * LDX · LD Capital Brand Tokens
+ * Palette sampled from the official LD Realty Capital / LD Capital wordmarks.
+ * Typography: serif display (Georgia stack), sans body (system-ui) for legibility on dashboards.
+ */
+
+:root {
+  /* Core palette */
+  --ldx-navy-900:   #122A4E;
+  --ldx-navy-700:   #1D3E6E;
+  --ldx-navy-500:   #2E568F;
+  --ldx-navy-300:   #5B7AA3;
+  --ldx-sky-400:    #7FB2DE;
+  --ldx-sky-200:    #B5D2EA;
+
+  /* Neutrals */
+  --ldx-paper:      #ffffff;
+  --ldx-cream:      #f7f4ee;   /* letterhead warmth */
+  --ldx-wash:       #f2f6fb;   /* card fill */
+  --ldx-line:       #d8e2ee;
+  --ldx-ink:        #1a2432;
+  --ldx-dim:        #5b6b80;
+
+  /* Semantic */
+  --ldx-ok:         #1E7A3B;
+  --ldx-warn:       #B5860B;
+  --ldx-err:        #A22929;
+  --ldx-info:       var(--ldx-navy-500);
+
+  /* Type stacks */
+  --ldx-serif:      Georgia, 'Times New Roman', 'Cambria', 'Times', serif;
+  --ldx-sans:       'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --ldx-mono:       'JetBrains Mono', 'SF Mono', Consolas, 'Courier New', monospace;
+
+  /* Motion */
+  --ldx-ease:       cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 15px; }
+body {
+  font-family: var(--ldx-sans);
+  color: var(--ldx-ink);
+  background: var(--ldx-paper);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Typography ───────────────────────────────────────────────────────── */
+.ldx-display, h1, h2, h3, .ldx-serif { font-family: var(--ldx-serif); }
+h1 { font-size: 32px; letter-spacing: 0.02em; color: var(--ldx-navy-900); font-weight: 700; }
+h2 {
+  font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ldx-navy-700); font-family: var(--ldx-sans); font-weight: 600;
+  border-left: 4px solid var(--ldx-sky-400); padding-left: 10px;
+  margin: 30px 0 12px;
+}
+h3 { font-size: 20px; color: var(--ldx-navy-700); margin: 12px 0 8px; font-weight: 600; }
+.ldx-eyebrow {
+  font-family: var(--ldx-sans); font-size: 11px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ldx-dim);
+}
+.ldx-mono { font-family: var(--ldx-mono); font-size: 12px; }
+.ldx-hash { font-family: var(--ldx-mono); font-size: 11px; color: var(--ldx-dim); word-break: break-all; }
+
+/* ── Brand header (mark + wordmark) ───────────────────────────────────── */
+.ldx-brandbar {
+  display: flex; align-items: center; gap: 18px;
+  border-bottom: 4px solid var(--ldx-navy-700);
+  padding: 22px 0 18px;
+  margin-bottom: 26px;
+}
+.ldx-brandbar img.ldx-mark { width: 62px; height: 56px; flex-shrink: 0; }
+.ldx-brandbar .ldx-wordmark {
+  font-family: var(--ldx-serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ldx-navy-900);
+  letter-spacing: 0.18em;
+}
+.ldx-brandbar .ldx-tag {
+  font-family: var(--ldx-sans); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ldx-dim); margin-top: 4px;
+}
+.ldx-brandbar .ldx-right { margin-left: auto; text-align: right; }
+
+/* ── Cards ────────────────────────────────────────────────────────────── */
+.ldx-card {
+  background: var(--ldx-paper);
+  border: 1px solid var(--ldx-line);
+  border-top: 3px solid var(--ldx-navy-700);
+  padding: 20px 22px;
+  border-radius: 2px;
+}
+.ldx-card.accent { border-top-color: var(--ldx-sky-400); }
+.ldx-card h2 { margin-top: 0; }
+
+/* ── Stat grid ────────────────────────────────────────────────────────── */
+.ldx-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.ldx-stat {
+  border: 1px solid var(--ldx-line);
+  border-top: 3px solid var(--ldx-sky-400);
+  padding: 16px 18px;
+  text-align: left;
+  background: var(--ldx-paper);
+}
+.ldx-stat .v {
+  font-family: var(--ldx-serif); font-size: 26px; font-weight: 700;
+  color: var(--ldx-navy-700);
+}
+.ldx-stat .k {
+  font-family: var(--ldx-sans); font-size: 10px; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--ldx-dim); margin-top: 6px;
+}
+
+/* ── Rows ─────────────────────────────────────────────────────────────── */
+.ldx-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 8px 0; border-bottom: 1px dotted var(--ldx-line);
+  font-size: 13px;
+}
+.ldx-row:last-child { border: none; }
+.ldx-row .k { color: var(--ldx-dim); }
+.ldx-row .v { color: var(--ldx-ink); font-weight: 600; }
+.ldx-row .v.ok   { color: var(--ldx-ok); }
+.ldx-row .v.warn { color: var(--ldx-warn); }
+.ldx-row .v.err  { color: var(--ldx-err); }
+
+/* ── Badges (status registry) ─────────────────────────────────────────── */
+.ldx-badge {
+  display: inline-block; padding: 2px 9px; border-radius: 2px;
+  font-family: var(--ldx-sans); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border: 1px solid transparent;
+}
+.ldx-badge.live       { background: #E6F4EA; color: #0F5E28; border-color: #C2E4CE; }
+.ldx-badge.sandbox    { background: #FFF6DF; color: #7A5B08; border-color: #EEDA9F; }
+.ldx-badge.notengaged { background: #F1F3F7; color: #5B6B80; border-color: #D8E2EE; }
+.ldx-badge.queued     { background: #EAF2FB; color: var(--ldx-navy-700); border-color: #C7DBEF; }
+.ldx-badge.running    { background: #FFF6DF; color: #7A5B08; border-color: #EEDA9F; }
+.ldx-badge.completed  { background: #E6F4EA; color: #0F5E28; border-color: #C2E4CE; }
+.ldx-badge.failed     { background: #FBEAEA; color: #7A1F1F; border-color: #EFC5C5; }
+
+/* ── Callouts ─────────────────────────────────────────────────────────── */
+.ldx-callout {
+  background: var(--ldx-wash);
+  border-left: 4px solid var(--ldx-navy-700);
+  padding: 14px 18px; margin: 18px 0; font-size: 14px;
+}
+.ldx-callout.warn { border-left-color: var(--ldx-warn); background: #FDF8EA; }
+.ldx-callout.quote {
+  font-family: var(--ldx-serif); font-style: italic; font-size: 16px;
+  color: var(--ldx-navy-700); border-left-color: var(--ldx-sky-400);
+}
+
+/* ── Tables ───────────────────────────────────────────────────────────── */
+.ldx-table {
+  width: 100%; border-collapse: collapse; margin: 10px 0 18px;
+  font-size: 13px; background: var(--ldx-paper);
+}
+.ldx-table th {
+  background: var(--ldx-navy-700); color: #fff; text-align: left;
+  padding: 9px 12px; font-weight: 600; letter-spacing: 0.03em;
+  font-family: var(--ldx-sans); font-size: 12px;
+}
+.ldx-table td {
+  border-bottom: 1px solid var(--ldx-line);
+  padding: 9px 12px; vertical-align: top;
+}
+.ldx-table tr:nth-child(even) td { background: var(--ldx-wash); }
+
+/* ── Utility ──────────────────────────────────────────────────────────── */
+.ldx-wrap { max-width: 1120px; margin: 0 auto; padding: 36px 44px 64px; }
+.ldx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px; }
+.ldx-two  { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.ldx-divider { border-top: 1px solid var(--ldx-line); margin: 28px 0; }
+.ldx-disclaimer {
+  font-size: 11px; color: var(--ldx-dim); line-height: 1.5;
+  border-top: 1px solid var(--ldx-line); padding-top: 14px; margin-top: 32px;
+}
+.ldx-link { color: var(--ldx-navy-500); text-decoration: none; border-bottom: 1px dotted var(--ldx-sky-400); }
+.ldx-link:hover { color: var(--ldx-navy-900); border-bottom-style: solid; }
+
+.ldx-conn { padding: 4px 12px; border-radius: 2px; font-size: 11px; letter-spacing: 0.06em; }
+.ldx-conn.live { background: #E6F4EA; color: #0F5E28; }
+.ldx-conn.dead { background: #FBEAEA; color: #7A1F1F; }
+
+/* Scrollbars — quiet institutional */
+.ldx-scroll { max-height: 320px; overflow-y: auto; }
+.ldx-scroll::-webkit-scrollbar { width: 6px; }
+.ldx-scroll::-webkit-scrollbar-thumb { background: var(--ldx-line); border-radius: 3px; }
+
+@media print {
+  .ldx-wrap { padding: 20px 28px; }
+  .ldx-conn, .ldx-brandbar .ldx-right { display: none; }
+}

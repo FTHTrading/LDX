@@ -1,0 +1,104 @@
+/*
+ * LDX Outreach Template — shared styling for email + partner-briefing pages.
+ * Extends ldx.css with letter/email-specific patterns.
+ */
+
+@import url('../brand/ldx.css');
+
+body { background: var(--ldx-cream); }
+
+.letter-wrap { max-width: 820px; margin: 30px auto; padding: 0 20px 60px; }
+
+.nav-strip {
+  display: flex; gap: 8px; padding: 12px 0 18px;
+  font-family: var(--ldx-sans); font-size: 11px; letter-spacing: 0.09em;
+  text-transform: uppercase; flex-wrap: wrap;
+}
+.nav-strip a {
+  padding: 6px 14px; color: var(--ldx-navy-700); text-decoration: none;
+  border: 1px solid var(--ldx-line); background: var(--ldx-paper); font-weight: 600;
+}
+.nav-strip a:hover, .nav-strip a.active {
+  background: var(--ldx-navy-700); color: #fff; border-color: var(--ldx-navy-700);
+}
+.nav-strip .actions { margin-left: auto; display: flex; gap: 8px; }
+
+.envelope {
+  background: var(--ldx-paper); border-top: 4px solid var(--ldx-navy-700);
+  padding: 32px 44px 24px; margin-bottom: 0;
+}
+.envelope .meta {
+  font-family: var(--ldx-mono); font-size: 12px; color: var(--ldx-dim);
+  border-bottom: 1px dotted var(--ldx-line); padding-bottom: 10px; margin-bottom: 10px;
+}
+.envelope .meta .k { display: inline-block; width: 82px; color: var(--ldx-navy-500); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; font-size: 11px; }
+.envelope .meta .row { padding: 3px 0; }
+.envelope .subject {
+  font-family: var(--ldx-serif); font-size: 22px; font-weight: 700;
+  color: var(--ldx-navy-900); margin-top: 12px; line-height: 1.35;
+}
+
+.letter {
+  background: var(--ldx-paper); padding: 40px 44px 28px;
+  box-shadow: 0 2px 30px rgba(18, 42, 78, 0.06);
+}
+.letter .brandbar {
+  display: flex; align-items: center; gap: 16px;
+  border-bottom: 3px solid var(--ldx-navy-700);
+  padding-bottom: 14px; margin-bottom: 24px;
+}
+.letter .brandbar img { height: 48px; width: auto; }
+.letter .brandbar .name { font-family: var(--ldx-serif); font-size: 22px; font-weight: 700; color: var(--ldx-navy-900); letter-spacing: 0.15em; }
+.letter .brandbar .sub  { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ldx-dim); margin-top: 3px; }
+.letter p, .letter li {
+  font-family: var(--ldx-serif); font-size: 15px; line-height: 1.7;
+  color: var(--ldx-ink); margin-bottom: 14px;
+}
+.letter ul { padding-left: 22px; margin-bottom: 16px; }
+.letter ul li { margin-bottom: 6px; }
+.letter h3 {
+  font-family: var(--ldx-serif); font-size: 17px; color: var(--ldx-navy-900);
+  margin: 18px 0 8px;
+}
+.letter .highlight {
+  background: var(--ldx-wash); border-left: 4px solid var(--ldx-sky-400);
+  padding: 14px 18px; margin: 16px 0; font-family: var(--ldx-serif);
+  font-size: 14.5px; color: var(--ldx-navy-700);
+}
+.letter .signature {
+  margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--ldx-line);
+}
+.letter .signature .name {
+  font-family: var(--ldx-serif); font-size: 19px; color: var(--ldx-navy-900); font-weight: 700;
+  margin-bottom: 3px;
+}
+.letter .signature .title { color: var(--ldx-dim); font-size: 12.5px; line-height: 1.6; }
+.letter .signature .contact { color: var(--ldx-navy-500); font-size: 12px; margin-top: 6px; }
+.letter .disclaimer {
+  margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--ldx-line);
+  font-family: var(--ldx-sans); font-size: 10.5px; color: var(--ldx-dim);
+  line-height: 1.55;
+}
+
+.action-bar {
+  display: flex; gap: 10px; justify-content: flex-end; padding: 14px 0 0;
+  border-top: 1px solid var(--ldx-line);
+}
+.btn {
+  padding: 8px 16px; font-family: var(--ldx-sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  border: 1px solid var(--ldx-navy-700); color: var(--ldx-navy-700);
+  background: var(--ldx-paper); cursor: pointer; transition: all 0.15s;
+}
+.btn:hover { background: var(--ldx-navy-700); color: #fff; }
+.btn.primary { background: var(--ldx-navy-700); color: #fff; }
+.btn.primary:hover { background: var(--ldx-navy-900); border-color: var(--ldx-navy-900); }
+.btn.ok { border-color: var(--ldx-ok); color: var(--ldx-ok); }
+.btn.ok:hover { background: var(--ldx-ok); color: #fff; }
+
+@media print {
+  body { background: white; }
+  .nav-strip, .action-bar { display: none; }
+  .letter, .envelope { box-shadow: none; margin: 0; padding: 20px 30px; }
+  .letter-wrap { padding: 0; margin: 0; max-width: none; }
+}

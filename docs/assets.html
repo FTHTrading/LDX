@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LDX · Asset Vault — LD Capital</title>
+<link rel="icon" type="image/png" href="./ldx-assets/logos/ld-capital.png">
+<link rel="stylesheet" href="./brand/ldx.css">
+<style>
+  body { background: var(--ldx-cream); }
+  .nav-strip {
+    display: flex; gap: 8px; padding: 10px 0 20px;
+    font-family: var(--ldx-sans); font-size: 11px; letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+  .nav-strip a {
+    padding: 6px 14px; color: var(--ldx-navy-700); text-decoration: none;
+    border: 1px solid var(--ldx-line); background: var(--ldx-paper); font-weight: 600;
+  }
+  .nav-strip a:hover, .nav-strip a.active {
+    background: var(--ldx-navy-700); color: #fff; border-color: var(--ldx-navy-700);
+  }
+  .asset-section { margin-bottom: 36px; }
+  .asset-section h2 { margin-top: 0; }
+  .asset-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 14px; margin-top: 10px;
+  }
+  .asset-card {
+    background: var(--ldx-paper); border: 1px solid var(--ldx-line);
+    border-left: 3px solid var(--ldx-sky-400);
+    padding: 18px 20px; display: flex; flex-direction: column;
+    transition: box-shadow 0.15s ease;
+  }
+  .asset-card:hover { box-shadow: 0 4px 20px rgba(18, 42, 78, 0.08); border-left-color: var(--ldx-navy-700); }
+  .asset-title {
+    font-family: var(--ldx-serif); font-size: 15px; color: var(--ldx-navy-900);
+    font-weight: 700; margin-bottom: 4px; line-height: 1.35;
+  }
+  .asset-meta {
+    font-family: var(--ldx-sans); font-size: 11px; color: var(--ldx-dim);
+    letter-spacing: 0.05em; margin-bottom: 12px;
+  }
+  .asset-desc { font-size: 12.5px; color: var(--ldx-ink); line-height: 1.55; flex: 1; margin-bottom: 12px; }
+  .asset-actions { display: flex; gap: 8px; }
+  .asset-btn {
+    padding: 6px 14px; font-family: var(--ldx-sans); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+    border: 1px solid var(--ldx-navy-700); color: var(--ldx-navy-700);
+    background: var(--ldx-paper); transition: all 0.15s;
+  }
+  .asset-btn:hover { background: var(--ldx-navy-700); color: #fff; }
+  .asset-btn.primary { background: var(--ldx-navy-700); color: #fff; }
+  .asset-btn.primary:hover { background: var(--ldx-navy-900); border-color: var(--ldx-navy-900); }
+
+  .logo-card { text-align: center; padding: 26px 20px 20px; }
+  .logo-card img { max-width: 160px; max-height: 100px; object-fit: contain; margin-bottom: 12px; }
+
+  audio { width: 100%; margin-top: 8px; }
+  .audio-card { border-left-color: var(--ldx-navy-500); }
+
+  .kbd {
+    font-family: var(--ldx-mono); font-size: 11px;
+    background: var(--ldx-wash); padding: 1px 6px; border-radius: 2px;
+    border: 1px solid var(--ldx-line); color: var(--ldx-navy-700);
+  }
+  .summary-strip {
+    background: var(--ldx-paper); border: 1px solid var(--ldx-line);
+    padding: 16px 22px; margin-bottom: 24px;
+    display: flex; gap: 30px; flex-wrap: wrap;
+  }
+  .summary-strip .cell .n {
+    font-family: var(--ldx-serif); font-size: 22px; font-weight: 700; color: var(--ldx-navy-700);
+  }
+  .summary-strip .cell .l {
+    font-family: var(--ldx-sans); font-size: 10px; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--ldx-dim);
+  }
+</style>
+</head>
+<body>
+
+<div class="ldx-wrap">
+
+<header class="ldx-brandbar">
+  <img class="ldx-mark" src="./ldx-assets/logos/ld-capital.png" alt="LD Capital" style="height:56px;width:auto">
+  <div>
+    <div class="ldx-wordmark">LDX <span style="color:var(--ldx-sky-400)">·</span> ASSET VAULT</div>
+    <div class="ldx-tag">Canonical repository · LD Capital brand + campaign + deal assets</div>
+  </div>
+  <div class="ldx-right">
+    <div class="ldx-eyebrow">Public Assets</div>
+    <div style="font-family:var(--ldx-serif);color:var(--ldx-navy-700);font-weight:700;font-size:22px">11</div>
+  </div>
+</header>
+
+<nav class="nav-strip">
+  <a href="./index.html" title="Internal dashboard &mdash; not published">Operator Console</a>
+  <a href="./status.html">Client Status Page</a>
+  <a href="./letter.html">Client Letter</a>
+  <a href="./assets.html" class="active">Asset Vault</a>
+  <a href="./outreach.html">Outreach Catalog</a>
+  <a href="./index.html#rwa" target="_blank">Portfolio JSON</a>
+</nav>
+
+<div class="summary-strip">
+  <div class="cell"><div class="n">2</div><div class="l">Official Logos</div></div>
+  <div class="cell"><div class="n">5</div><div class="l">Documents (PDF / HTML)</div></div>
+  <div class="cell"><div class="n">4</div><div class="l">Audio Narrations</div></div>
+  <div class="cell"><div class="n">1</div><div class="l">Source Reference (Rust)</div></div>
+  <div class="cell"><div class="n">~18 MB</div><div class="l">Total Vault Size</div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="asset-section">
+  <h2>Official Brand Marks</h2>
+  <div class="asset-grid">
+
+    <div class="asset-card logo-card">
+      <img src="./ldx-assets/logos/ld-capital.png" alt="LD Capital official mark">
+      <div class="asset-title">LD Capital — Official Mark</div>
+      <div class="asset-meta">PNG · 73 KB · Navy 900 + Sky 400</div>
+      <div class="asset-desc">The canonical LD Capital wordmark + interlocking-triangle mark. Use for headers, letterhead, presentations. Preserve original palette (#122A4E · #7FB2DE).</div>
+      <div class="asset-actions">
+        <a class="asset-btn primary" href="./ldx-assets/logos/ld-capital.png" download>Download PNG</a>
+        <a class="asset-btn" href="./ldx-assets/logos/ld-capital.png" target="_blank">View</a>
+      </div>
+    </div>
+
+    <div class="asset-card logo-card">
+      <img src="./ldx-assets/logos/ld-realty-capital.png" alt="LD Realty Capital official mark">
+      <div class="asset-title">LD Realty Capital — Official Mark</div>
+      <div class="asset-meta">PNG · 72 KB · CRE division lockup</div>
+      <div class="asset-desc">LD Realty Capital division wordmark. Use on institutional CMBS materials, appraiser correspondence, and lender-facing packages. Same mark, different wordmark.</div>
+      <div class="asset-actions">
+        <a class="asset-btn primary" href="./ldx-assets/logos/ld-realty-capital.png" download>Download PNG</a>
+        <a class="asset-btn" href="./ldx-assets/logos/ld-realty-capital.png" target="_blank">View</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="asset-section">
+  <h2>Documents — LDX Announcement Package</h2>
+  <div class="asset-grid">
+
+    <div class="asset-card">
+      <div class="asset-title">LDX Client Announcement Letter</div>
+      <div class="asset-meta">PDF · 65 KB · From Niraj Sheth · Top 100 relationships</div>
+      <div class="asset-desc">The hand-signable letter to LD Capital's top 100 client relationships. "Twenty-nine years. Three recessions. $4.5B+. And now — our largest step forward yet." Live web version at <span class="kbd">/letter</span>.</div>
+      <div class="asset-actions">
+        <a class="asset-btn primary" href="./ldx-assets/documents/LDX_Client_Announcement_Letter.pdf" target="_blank">Open PDF</a>
+        <a class="asset-btn" href="./letter.html">Web version</a>
+      </div>
+    </div>
+
+    <div class="asset-card">
+      <div class="asset-title">LDX New Programs Brochure</div>
+      <div class="asset-meta">PDF · 109 KB · 2-page · Client-facing</div>
+      <div class="asset-desc">Two-page brochure covering the five expanded programs: Hospitality Construction, SBA+USDA+Energy, Restoration, Private CRE (by invitation), EB-5 Bridge to USA. Distributable to hoteliers and AAHOA members.</div>
+      <div class="asset-actions">
+        <a class="asset-btn primary" href="./ldx-assets/documents/LDX_New_Programs_Brochure.pdf" target="_blank">Open PDF</a>
+        <a class="asset-btn" href="./ldx-assets/documents/LDX_New_Programs_Brochure.pdf" download>Download</a>
+      </div>
+    </div>
+
+    <div class="asset-card">
+      <div class="asset-title">LD Capital Company Dossier</div>
+      <div class="asset-meta">PDF · 126 KB · 4-page · Internal &amp; partner</div>
+      <div class="asset-desc">Full company profile: $4.5B lifetime volume, 1996 origin, three-recession history, four divisions, M Helen flagship, claim-control table (what's verified vs what needs confirmation), and the business-generation matrix.</div>
+      <div class="asset-actions">
+        <a class="asset-btn primary" href="./ldx-assets/documents/ld-capital-company-dossier.pdf" target="_blank">Open PDF</a>
+        <a class="asset-btn" href="./ldx-assets/documents/LD_Capital_Company_Dossier.html" target="_blank">HTML version</a>
+      </div>
+    </div>
+
+    <div class="asset-card">
+      <div class="asset-title">Asian Hospitality Feature — "No such place as Easy Street"</div>
+      <div class="asset-meta">PDF · 90 KB · Press-reported source of record</div>
+      <div class="asset-desc">The Asian Hospitality magazine feature on Niraj Sheth and The Loan Depot. Source for the $5.7M first-deal, $320M single-year hotel loans, $75M LOC, 2008 recovery narrative, and Meeta/Parag/Asmita credit. Cite as "per Asian Hospitality."</div>
+      <div class="asset-actions">
+        <a class="asset-btn primary" href="./ldx-assets/documents/ah-may-finance-feature-the-loan-depot.pdf" target="_blank">Open PDF</a>
+      </div>
+    </div>
+
+    <div class="asset-card">
+      <div class="asset-title">Company Dossier (HTML)</div>
+      <div class="asset-meta">HTML · 14 KB · Interactive · Self-contained</div>
+      <div class="asset-desc">Interactive HTML version of the dossier. Prints cleanly, embeds inline. Useful for email attachments and shared drives.</div>
+      <div class="asset-actions">
+        <a class="asset-btn primary" href="./ldx-assets/documents/LD_Capital_Company_Dossier.html" target="_blank">Open HTML</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="asset-section">
+  <h2>Voice Narrations — LDX Position Statements</h2>
+  <div class="asset-grid">
+
+    <div class="asset-card audio-card">
+      <div class="asset-title">01 · Why LD Capital Banned Crypto Jargon</div>
+      <div class="asset-meta">MP3 · 4.3 MB · Standing Rule #1</div>
+      <div class="asset-desc">Position statement on the LDX language discipline. Why "execution platform," "settlement infrastructure," and "institutional safekeeping" — never "token," "wallet," "chain."</div>
+      <audio controls preload="none">
+        <source src="./ldx-assets/audio/01-why-ld-capital-banned-crypto-jargon.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="asset-card audio-card">
+      <div class="asset-title">02 · Why LD Capital Banned the Word "Blockchain"</div>
+      <div class="asset-meta">MP3 · 4.9 MB · Standing Rule #1 (deep cut)</div>
+      <div class="asset-desc">Deeper cut on why the b-word is off-limits in every LDX client-facing surface. Reinforces the RM "is this crypto?" objection handler in the Campaign Kit.</div>
+      <audio controls preload="none">
+        <source src="./ldx-assets/audio/02-why-ld-capital-banned-the-word-blockchain.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="asset-card audio-card">
+      <div class="asset-title">03 · Global Hospitality Lending Ecosystem</div>
+      <div class="asset-meta">MP3 · 4.5 MB · Positioning</div>
+      <div class="asset-desc">The full LD Capital global hospitality lending story. Use for investor conversations, EB-5 client onboarding, and AAHOA context-setting.</div>
+      <audio controls preload="none">
+        <source src="./ldx-assets/audio/03-global-hospitality-lending-ecosystem.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="asset-card audio-card">
+      <div class="asset-title">04 · LD Capital Launches the LDX Platform</div>
+      <div class="asset-meta">MP3 · 3.8 MB · Public-facing announcement</div>
+      <div class="asset-desc">The launch narration. Match the LDX Client Letter tone. Suitable for LinkedIn video attach, RM training, and internal all-hands.</div>
+      <audio controls preload="none">
+        <source src="./ldx-assets/audio/04-ld-capital-launches-the-ldx-platform.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section class="asset-section">
+  <h2>Source Code References</h2>
+  <div class="asset-grid">
+    <div class="asset-card">
+      <div class="asset-title">capital.rs — LD Capital Rust Module</div>
+      <div class="asset-meta">Rust · 10.7 KB · Reference from 18-crate platform</div>
+      <div class="asset-desc">Reference source from the LD Capital Rust workspace — the rwa-pipeline capital-sourcing module. Honest venue-vs-lender typing, with Unykorn structurally excluded from capital sources (rails-only).</div>
+      <div class="asset-actions">
+        <a class="asset-btn primary" href="https://github.com/FTHTrading/LDX/blob/main/src/main.rs" target="_blank" rel="noopener" target="_blank">View Source</a>
+        <a class="asset-btn" href="https://github.com/FTHTrading/LDX/blob/main/src/main.rs" target="_blank" rel="noopener" download>Download</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ldx-disclaimer">
+  This vault contains business documents and brand assets for LD Capital LLC internal use, partner distribution, and client relationship management. Audio narrations are position statements developed for training and communications purposes and are not offers of securities. All PDFs and letters are subject to the LDX five standing rules and require Niraj Sheth's approval before external distribution. &copy; LD Capital LLC. Vault index generated by LDX Hub · assets served from <span class="kbd">public/ldx-assets/</span>.
+</footer>
+
+</div>
+</body>
+</html>

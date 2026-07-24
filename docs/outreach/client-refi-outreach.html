@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><title>Refinance / New Project Outreach · LD Capital</title>
+<link rel="icon" type="image/png" href="../ldx-assets/logos/ld-capital.png">
+<link rel="stylesheet" href="./_template.css">
+</head><body>
+
+<div class="letter-wrap">
+
+<nav class="nav-strip">
+  <a href="../outreach.html">← Outreach Catalog</a>
+  <div class="actions">
+    <button class="btn ok" onclick="copyPlain()">Copy Plaintext</button>
+    <button class="btn primary" onclick="window.print()">Print / PDF</button>
+  </div>
+</nav>
+
+<div class="envelope">
+  <div class="meta">
+    <div class="row"><span class="k">To</span> [First Name] — Hospitality Owner</div>
+    <div class="row"><span class="k">From</span> [Relationship Manager] · LD Capital · [RM email]</div>
+    <div class="row"><span class="k">CC</span> Niraj "Nick" Sheth (on request)</div>
+  </div>
+  <div class="subject">A short note — LDX + your [refi maturity / new project / storm-affected property]</div>
+</div>
+
+<article class="letter" id="letter-body">
+
+  <div class="brandbar">
+    <img src="../ldx-assets/logos/ld-capital.png" alt="LD Capital">
+    <div>
+      <div class="name">LDX <span style="color:var(--ldx-sky-400)">·</span> LD CAPITAL</div>
+      <div class="sub">The Loan Depot · LD Realty Capital · Since 1996</div>
+    </div>
+  </div>
+
+  <p>[First Name],</p>
+
+  <p>Short note — Nick asked me to reach out personally about [refi maturity date / project you mentioned at AAHOA / restoration situation]. Two reasons.</p>
+
+  <p><strong>First — the LDX platform.</strong> We just finished the largest infrastructure upgrade in the firm's history. In plain terms it means: draw requests, closings, and disbursements that used to take weeks now move in days, and everything is verifiable in real time. Your transaction assets are held under a custody arrangement with an OCC-chartered national trust bank. Same team, same phone number, same standards you've always had — the technology just serves the relationship faster and cleaner.</p>
+
+  <p><strong>Second — your specific situation.</strong> [Custom sentence pulled from CRM: e.g., "Your CMBS matures Q3 2027 and rates are where they are. Worth a 20-minute conversation about how we structure the refi from here." OR "You mentioned the ground-up build in Cartersville. LDX-enabled construction-to-perm financing is exactly the use case we built the flagship SpringHill Suites deal on. Same playbook, ready when you are." OR "Your Tampa property in the storm zone — we've paired restoration bridge lending with claim-documentation support that has helped several owners recover materially more from their policies than they'd have gotten on their own."]</p>
+
+  <div class="highlight">
+    Would twenty minutes this week or next work? I can bring [Nick / Niraj / underwriting]. Just say when.
+  </div>
+
+  <p>Same promise as always — help, protect, and educate. Talk soon.</p>
+
+  <div class="signature">
+    <div class="name">[Relationship Manager]</div>
+    <div class="title">Relationship Manager · LD Capital LLC<br>[RM email] · 770-272-2232 · Atlanta, Georgia</div>
+  </div>
+
+  <div class="disclaimer">
+    This message is for informational purposes only and is not an offer to sell or a solicitation of an offer to buy any security or investment product. All loans subject to underwriting, eligibility, and applicable state and federal regulation. LD Capital LLC · Atlanta, GA · 770-272-2232 · ldrcllc.com.
+  </div>
+</article>
+
+<div class="action-bar">
+  <button class="btn ok" onclick="copyPlain()">Copy Plaintext</button>
+  <button class="btn primary" onclick="window.print()">Print / PDF</button>
+</div>
+
+</div>
+
+<script>
+function copyPlain() {
+  const html = document.getElementById('letter-body').innerText;
+  navigator.clipboard.writeText(html).then(() => alert('Plaintext copied to clipboard'));
+}
+</script>
+</body></html>

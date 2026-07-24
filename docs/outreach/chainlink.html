@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><title>LDX → Chainlink · NAVLink Integration Discussion</title>
+<link rel="icon" type="image/png" href="../ldx-assets/logos/ld-capital.png">
+<link rel="stylesheet" href="./_template.css">
+</head><body>
+
+<div class="letter-wrap">
+
+<nav class="nav-strip">
+  <a href="../outreach.html">← Outreach Catalog</a>
+  <a href="../status.html">LDX Status Page</a>
+  <div class="actions">
+    <button class="btn ok" onclick="copyPlain()">Copy Plaintext</button>
+    <button class="btn primary" onclick="window.print()">Print / PDF</button>
+  </div>
+</nav>
+
+<div class="envelope">
+  <div class="meta">
+    <div class="row"><span class="k">To</span> Chainlink Labs — Institutional Partnerships (NAVLink)</div>
+    <div class="row"><span class="k">From</span> Niraj "Nick" Sheth · Founder, President &amp; CEO · LD Capital LLC</div>
+    <div class="row"><span class="k">CC</span> Kevan Burns · LD Capital · kevan@ldrcllc.com</div>
+    <div class="row"><span class="k">Attach</span> LDX Company Dossier · Partner One-Pager · M Helen Deal Sheet</div>
+  </div>
+  <div class="subject">LDX &amp; NAVLink — verified NAV feeds for hospitality construction &amp; CRE debt tranches</div>
+</div>
+
+<article class="letter" id="letter-body">
+
+  <div class="brandbar">
+    <img src="../ldx-assets/logos/ld-capital.png" alt="LD Capital">
+    <div>
+      <div class="name">LDX <span style="color:var(--ldx-sky-400)">·</span> LD CAPITAL</div>
+      <div class="sub">The Loan Depot · LD Realty Capital · Since 1996</div>
+    </div>
+  </div>
+
+  <p>To the Chainlink institutional team,</p>
+
+  <p>I lead LD Capital LLC, an Atlanta-based commercial finance firm with <strong>$4.5 billion in commercial real estate loans</strong> originated and serviced since 1996. We are 29 years into building a hospitality-CRE origination franchise, and we are now completing LDX — the execution and settlement platform that sits underneath our lending business.</p>
+
+  <p>I am reaching out because verified pricing infrastructure is central to what we are building, and Chainlink's NAVLink capability is precisely the piece we need to get right the first time.</p>
+
+  <div class="highlight">
+    <strong>Concrete use case:</strong> our flagship LD Capital-sponsored project — a 90-key SpringHill Suites by Marriott in Helen, Georgia, appraised at $27.5M as-complete, currently under construction — is being structured for tranched institutional distribution. NAV feeds for that structure need to be verifiable, auditable, and consumable by institutional counterparties on their terms.
+  </div>
+
+  <h3>What we would explore</h3>
+  <ul>
+    <li><strong>NAVLink integration for LD Capital-originated tranches.</strong> Third-party servicing valuations, appraiser marks, and payment waterfall state — surfaced as verifiable feeds consumable by qualified market participants.</li>
+    <li><strong>Draw-milestone attestation infrastructure.</strong> Construction milestone verification (inspector sign-off, lien waivers, contractor pay-app G-703) transformed into verifiable events that trigger disbursement approvals.</li>
+    <li><strong>Cross-institution reference pricing.</strong> A path toward the same architecture that already carries Securitize's VBILL into Aave Horizon — applied to LD Capital's hospitality &amp; CRE credit output.</li>
+  </ul>
+
+  <h3>What we are asking</h3>
+  <p>A working conversation with the NAVLink institutional team — thirty to sixty minutes to walk through our origination flow and understand what a first LD Capital deployment would require. We are not asking for anything beyond time and honest engineering guidance.</p>
+
+  <p>Attached: company dossier + one-page brief. LDX status page: <a href="https://hub.unykorn.org/status">hub.unykorn.org/status</a>. Direct line: 770-272-2232. Office: kevan@ldrcllc.com.</p>
+
+  <p>Thank you for the consideration.</p>
+
+  <div class="signature">
+    <div class="name">Niraj &ldquo;Nick&rdquo; Sheth</div>
+    <div class="title">Founder, President &amp; Chief Executive Officer<br>LD Capital · The Loan Depot Lending Co., Inc.</div>
+    <div class="contact">770-272-2232 · ldrcllc.com · Atlanta, Georgia</div>
+  </div>
+
+  <div class="disclaimer">
+    This introduction is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security or investment product. Historical volume figures per LD Realty Capital company records. LD Capital LLC · Atlanta, GA.
+  </div>
+</article>
+
+<div class="action-bar">
+  <button class="btn ok" onclick="copyPlain()">Copy Plaintext</button>
+  <button class="btn primary" onclick="window.print()">Print / PDF</button>
+</div>
+
+</div>
+
+<script>
+function copyPlain() {
+  const html = document.getElementById('letter-body').innerText;
+  navigator.clipboard.writeText(html).then(() => alert('Plaintext copied to clipboard'));
+}
+</script>
+</body></html>

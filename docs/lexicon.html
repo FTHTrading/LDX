@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The LDX Lexicon Academy — LD Capital</title>
+<link rel="icon" type="image/png" href="./ldx-assets/logos/ld-capital.png">
+<link rel="stylesheet" href="./brand/ldx.css">
+<style>
+  body { background: var(--ldx-cream); }
+  .ldx-wrap { max-width: 1080px; }
+
+  /* Tabs */
+  .tab-strip {
+    display: flex; gap: 0; margin: 26px 0 20px; border-bottom: 2px solid var(--ldx-navy-700);
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 12px 22px; font-family: var(--ldx-sans); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+    background: transparent; color: var(--ldx-dim); border: none; border-bottom: 3px solid transparent;
+    margin-bottom: -2px; transition: all 0.15s;
+  }
+  .tab:hover { color: var(--ldx-navy-700); }
+  .tab.active {
+    color: var(--ldx-navy-900); border-bottom-color: var(--ldx-sky-400);
+    background: var(--ldx-paper);
+  }
+  .view { display: none; animation: fadeIn 0.25s ease; }
+  .view.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Progress ribbon */
+  .progress-ribbon {
+    background: var(--ldx-paper); border: 1px solid var(--ldx-line);
+    padding: 14px 20px; margin-bottom: 20px;
+    display: flex; gap: 24px; align-items: center; flex-wrap: wrap;
+  }
+  .progress-ribbon .metric { display: flex; flex-direction: column; }
+  .progress-ribbon .metric .n {
+    font-family: var(--ldx-serif); font-size: 22px; font-weight: 700; color: var(--ldx-navy-700);
+  }
+  .progress-ribbon .metric .l {
+    font-family: var(--ldx-sans); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ldx-dim);
+  }
+  .progress-ribbon .cert-btn {
+    margin-left: auto;
+    padding: 8px 16px; font-family: var(--ldx-sans); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    border: 1px solid var(--ldx-navy-700); color: var(--ldx-navy-700);
+    background: var(--ldx-paper); cursor: pointer;
+  }
+  .progress-ribbon .cert-btn.unlocked {
+    background: var(--ldx-navy-700); color: #fff;
+    animation: unlockPulse 1.5s ease-in-out;
+  }
+  @keyframes unlockPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(127, 178, 222, 0); }
+    50% { box-shadow: 0 0 0 8px rgba(127, 178, 222, 0.35); }
+  }
+
+  /* ═══════ LESSONS VIEW ═══════ */
+  .search-bar {
+    width: 100%; padding: 12px 16px; margin-bottom: 20px;
+    border: 1px solid var(--ldx-line); background: var(--ldx-paper);
+    font-family: var(--ldx-serif); font-size: 15px; color: var(--ldx-ink);
+  }
+  .search-bar:focus { outline: 2px solid var(--ldx-sky-400); border-color: var(--ldx-sky-400); }
+  .letter-anchor {
+    font-family: var(--ldx-serif); font-size: 40px; font-weight: 700; color: var(--ldx-sky-400);
+    margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--ldx-line);
+  }
+  .term-card {
+    background: var(--ldx-paper); border: 1px solid var(--ldx-line);
+    border-left: 3px solid var(--ldx-sky-400);
+    padding: 20px 24px; margin-bottom: 14px;
+  }
+  .term-card.mastered { border-left-color: var(--ldx-ok); }
+  .term-name {
+    font-family: var(--ldx-serif); font-size: 22px; font-weight: 700; color: var(--ldx-navy-900);
+    margin-bottom: 4px;
+  }
+  .term-pos {
+    font-style: italic; color: var(--ldx-dim); font-family: var(--ldx-serif);
+    font-size: 13px; margin-left: 6px;
+  }
+  .term-def { font-family: var(--ldx-serif); font-size: 15px; line-height: 1.65; color: var(--ldx-ink); margin: 8px 0 12px; }
+  .term-replaces {
+    display: inline-block; padding: 4px 12px;
+    background: #FBEAEA; color: #7A1F1F; border: 1px solid #EFC5C5;
+    font-family: var(--ldx-sans); font-size: 11px; letter-spacing: 0.04em;
+    margin: 6px 0 12px;
+  }
+  .term-replaces .lbl {
+    text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-right: 6px; font-size: 10px;
+  }
+  .term-example {
+    font-family: var(--ldx-serif); font-style: italic; font-size: 14px;
+    color: var(--ldx-navy-700); border-left: 3px solid var(--ldx-sky-400);
+    padding: 8px 14px; margin-top: 8px; background: var(--ldx-wash);
+  }
+  .term-example::before { content: '"'; font-size: 22px; margin-right: 2px; color: var(--ldx-sky-400); }
+  .term-example::after { content: '"'; font-size: 22px; margin-left: 2px; color: var(--ldx-sky-400); }
+
+  /* ═══════ FLASHCARDS VIEW ═══════ */
+  .flashcard-stage { display: flex; flex-direction: column; align-items: center; padding: 20px 0; }
+  .flashcard {
+    width: 100%; max-width: 560px; height: 360px; perspective: 1400px;
+    cursor: pointer; margin: 20px 0 30px;
+  }
+  .flashcard-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform 0.6s var(--ldx-ease); transform-style: preserve-3d;
+  }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-face {
+    position: absolute; inset: 0; backface-visibility: hidden;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 30px; background: var(--ldx-paper);
+    border: 1px solid var(--ldx-line); border-top: 4px solid var(--ldx-navy-700);
+    text-align: center;
+  }
+  .flashcard-face.back {
+    transform: rotateY(180deg); background: var(--ldx-wash);
+    border-top-color: var(--ldx-sky-400);
+  }
+  .flashcard-eyebrow {
+    font-family: var(--ldx-sans); font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ldx-dim); margin-bottom: 12px;
+  }
+  .flashcard-jargon {
+    font-family: var(--ldx-serif); font-size: 34px; color: #7A1F1F; font-weight: 700;
+    text-decoration: line-through; text-decoration-color: rgba(122, 31, 31, 0.4);
+    text-decoration-thickness: 2px; margin-bottom: 12px;
+  }
+  .flashcard-cta {
+    font-family: var(--ldx-sans); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ldx-dim); margin-top: 12px;
+  }
+  .flashcard-institutional {
+    font-family: var(--ldx-serif); font-size: 30px; color: var(--ldx-navy-900); font-weight: 700;
+    margin-bottom: 12px; line-height: 1.2;
+  }
+  .flashcard-def {
+    font-family: var(--ldx-serif); font-size: 14px; color: var(--ldx-ink);
+    line-height: 1.6; max-width: 440px;
+  }
+  .flashcard-controls { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
+  .flashcard-nav {
+    padding: 10px 18px; font-family: var(--ldx-sans); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    border: 1px solid var(--ldx-navy-700); color: var(--ldx-navy-700);
+    background: var(--ldx-paper); cursor: pointer;
+  }
+  .flashcard-nav:hover { background: var(--ldx-navy-700); color: #fff; }
+  .flashcard-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+  .flashcard-counter {
+    font-family: var(--ldx-mono); font-size: 12px; color: var(--ldx-dim);
+    padding: 0 14px;
+  }
+  .flashcard-mark {
+    padding: 8px 14px; font-size: 10px; letter-spacing: 0.09em;
+    background: var(--ldx-wash); border: 1px solid var(--ldx-line);
+    color: var(--ldx-navy-700); cursor: pointer;
+  }
+  .flashcard-mark.done { background: var(--ldx-ok); color: #fff; border-color: var(--ldx-ok); }
+
+  /* ═══════ QUIZ VIEW ═══════ */
+  .quiz-mode-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+  .quiz-mode {
+    padding: 22px; background: var(--ldx-paper); border: 1px solid var(--ldx-line);
+    border-top: 3px solid var(--ldx-sky-400); cursor: pointer; text-align: left;
+    transition: box-shadow 0.15s;
+  }
+  .quiz-mode:hover { box-shadow: 0 4px 20px rgba(18, 42, 78, 0.1); }
+  .quiz-mode.completed { border-top-color: var(--ldx-ok); background: #F7FBF8; }
+  .quiz-mode-name {
+    font-family: var(--ldx-serif); font-size: 18px; font-weight: 700; color: var(--ldx-navy-900);
+    margin-bottom: 4px;
+  }
+  .quiz-mode-desc { font-size: 12.5px; color: var(--ldx-ink); line-height: 1.5; }
+  .quiz-mode-score {
+    margin-top: 10px; font-family: var(--ldx-mono); font-size: 11px; color: var(--ldx-navy-500);
+  }
+
+  .quiz-stage { background: var(--ldx-paper); border: 1px solid var(--ldx-line); padding: 26px 30px; min-height: 380px; }
+  .quiz-progress { display: flex; justify-content: space-between; margin-bottom: 22px; font-family: var(--ldx-mono); font-size: 12px; color: var(--ldx-dim); }
+  .quiz-progress .streak { color: var(--ldx-warn); }
+  .quiz-progress .streak.hot { color: var(--ldx-err); font-weight: 700; }
+  .quiz-question {
+    font-family: var(--ldx-serif); font-size: 18px; line-height: 1.55; color: var(--ldx-navy-900);
+    margin-bottom: 22px; padding: 16px 20px; background: var(--ldx-wash); border-left: 4px solid var(--ldx-sky-400);
+  }
+  .quiz-jargon {
+    display: inline-block; padding: 2px 10px; background: #FBEAEA; color: #7A1F1F;
+    font-family: var(--ldx-serif); font-weight: 700; border-radius: 2px;
+  }
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .quiz-option {
+    padding: 14px 18px; background: var(--ldx-paper);
+    border: 1px solid var(--ldx-line); border-radius: 2px;
+    font-family: var(--ldx-serif); font-size: 15px; color: var(--ldx-ink);
+    cursor: pointer; text-align: left; transition: all 0.15s;
+  }
+  .quiz-option:hover { background: var(--ldx-wash); border-color: var(--ldx-sky-400); }
+  .quiz-option.correct { background: #E6F4EA; border-color: var(--ldx-ok); color: #0F5E28; }
+  .quiz-option.wrong { background: #FBEAEA; border-color: var(--ldx-err); color: #7A1F1F; }
+
+  .quiz-feedback {
+    margin-top: 20px; padding: 14px 18px; font-family: var(--ldx-serif); font-size: 14.5px;
+    border-left: 4px solid; display: none;
+  }
+  .quiz-feedback.show { display: block; animation: fadeIn 0.3s ease; }
+  .quiz-feedback.ok    { border-left-color: var(--ldx-ok);   background: #F7FBF8; color: #0F5E28; }
+  .quiz-feedback.err   { border-left-color: var(--ldx-err);  background: #FDF6F6; color: #7A1F1F; }
+  .quiz-feedback .fix { margin-top: 6px; font-style: italic; color: var(--ldx-navy-700); }
+
+  .quiz-next {
+    margin-top: 16px; padding: 10px 20px; font-family: var(--ldx-sans); font-size: 11px;
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--ldx-navy-700); color: #fff; border: none; cursor: pointer;
+  }
+  .quiz-next:hover { background: var(--ldx-navy-900); }
+
+  /* Spot-the-offender mode */
+  .sentence-editor {
+    font-family: var(--ldx-serif); font-size: 20px; line-height: 1.75; color: var(--ldx-ink);
+    padding: 20px 24px; background: var(--ldx-wash); border-left: 4px solid var(--ldx-sky-400);
+    margin-bottom: 18px;
+  }
+  .sentence-editor .word { padding: 2px 4px; cursor: pointer; border-radius: 2px; transition: background 0.15s; }
+  .sentence-editor .word:hover { background: var(--ldx-line); }
+  .sentence-editor .word.tagged { background: #FBEAEA; color: #7A1F1F; font-weight: 700; }
+  .sentence-editor .word.miss { background: #E6F4EA; color: #0F5E28; text-decoration: underline; text-decoration-color: var(--ldx-ok); text-decoration-thickness: 2px; }
+  .sentence-editor .word.wrong-tag { background: #FFF6DF; color: #7A5B08; }
+
+  /* Fill blank mode */
+  .fill-sentence {
+    font-family: var(--ldx-serif); font-size: 18px; line-height: 1.75; color: var(--ldx-ink);
+    padding: 20px 24px; background: var(--ldx-wash); border-left: 4px solid var(--ldx-sky-400);
+    margin-bottom: 18px;
+  }
+  .fill-blank {
+    display: inline-block; padding: 2px 12px; background: var(--ldx-navy-900); color: #fff;
+    min-width: 120px; text-align: center; border-radius: 2px; margin: 0 2px;
+    font-family: var(--ldx-serif); font-weight: 700;
+  }
+
+  /* ═══════ CHEAT SHEET VIEW ═══════ */
+  .cheat-container {
+    background: var(--ldx-paper); border: 1px solid var(--ldx-line);
+    padding: 0; margin-bottom: 18px;
+  }
+  .cheat-title {
+    background: var(--ldx-navy-900); color: #fff; padding: 18px 24px;
+    font-family: var(--ldx-serif); font-size: 22px;
+  }
+  .cheat-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .cheat-table th {
+    background: var(--ldx-navy-700); color: #fff; text-align: left; padding: 12px 20px;
+    font-family: var(--ldx-sans); font-weight: 600; font-size: 12px; letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cheat-table td { padding: 10px 20px; border-bottom: 1px solid var(--ldx-line); font-family: var(--ldx-serif); }
+  .cheat-table tr:nth-child(even) td { background: var(--ldx-wash); }
+  .cheat-table .never { color: #7A1F1F; font-weight: 500; text-decoration: line-through; text-decoration-color: rgba(122, 31, 31, 0.35); }
+  .cheat-table .always { color: var(--ldx-navy-900); font-weight: 700; }
+  .cheat-principle {
+    background: var(--ldx-navy-900); color: #fff; padding: 28px 32px; margin: 24px 0;
+    font-family: var(--ldx-serif); font-size: 20px; line-height: 1.5; font-style: italic;
+    border-left: 6px solid var(--ldx-sky-400);
+  }
+  .cheat-principle .attrib {
+    display: block; font-style: normal; font-family: var(--ldx-sans); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase; margin-top: 14px; color: var(--ldx-sky-200);
+  }
+
+  /* ═══════ CERTIFICATE ═══════ */
+  #cert-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(18, 42, 78, 0.65);
+    z-index: 10; align-items: center; justify-content: center; padding: 20px;
+    animation: fadeIn 0.3s ease;
+  }
+  #cert-overlay.show { display: flex; }
+  .certificate {
+    background: var(--ldx-paper); max-width: 720px; width: 100%;
+    padding: 50px 60px; border: 4px double var(--ldx-navy-700);
+    box-shadow: 0 10px 60px rgba(0, 0, 0, 0.4);
+    position: relative; text-align: center;
+  }
+  .cert-header {
+    font-family: var(--ldx-sans); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ldx-dim); margin-bottom: 8px;
+  }
+  .cert-title {
+    font-family: var(--ldx-serif); font-size: 34px; font-weight: 700; color: var(--ldx-navy-900);
+    margin-bottom: 12px;
+  }
+  .cert-tag {
+    font-family: var(--ldx-serif); font-style: italic; color: var(--ldx-navy-500);
+    font-size: 15px; margin-bottom: 30px;
+  }
+  .cert-body { font-family: var(--ldx-serif); font-size: 16px; line-height: 1.7; color: var(--ldx-ink); margin: 20px 0; }
+  .cert-name-line {
+    font-family: var(--ldx-serif); font-size: 30px; font-weight: 700; color: var(--ldx-navy-900);
+    padding: 12px 0; margin: 20px 0; border-bottom: 2px solid var(--ldx-navy-700);
+    display: inline-block; min-width: 320px;
+  }
+  .cert-name-input {
+    display: inline-block; width: 100%; text-align: center; border: none; background: transparent;
+    font-family: var(--ldx-serif); font-size: 30px; font-weight: 700; color: var(--ldx-navy-900);
+    padding: 4px 0;
+  }
+  .cert-name-input:focus { outline: none; }
+  .cert-seal {
+    position: absolute; top: 32px; right: 44px; width: 68px; height: 68px;
+  }
+  .cert-signature {
+    margin-top: 30px; display: flex; justify-content: space-between; align-items: flex-end;
+    padding-top: 20px; border-top: 1px solid var(--ldx-line);
+  }
+  .cert-sig-block { text-align: left; }
+  .cert-sig-name { font-family: var(--ldx-serif); font-weight: 700; color: var(--ldx-navy-900); font-size: 15px; }
+  .cert-sig-title { font-size: 11px; color: var(--ldx-dim); }
+  .cert-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 26px; }
+  .cert-btn {
+    padding: 10px 20px; font-family: var(--ldx-sans); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--ldx-navy-700);
+    color: var(--ldx-navy-700); background: var(--ldx-paper); cursor: pointer;
+  }
+  .cert-btn.primary { background: var(--ldx-navy-700); color: #fff; }
+  .cert-hash {
+    margin-top: 12px; font-family: var(--ldx-mono); font-size: 9px; color: var(--ldx-dim);
+    letter-spacing: 0.06em;
+  }
+
+  /* Print */
+  @media print {
+    .tab-strip, .search-bar, .progress-ribbon, .flashcard-controls, #cert-overlay { display: none; }
+    body { background: white; }
+    .view { display: block !important; }
+    .term-card { break-inside: avoid; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ldx-wrap">
+
+<header class="ldx-brandbar">
+  <img class="ldx-mark" src="./ldx-assets/logos/ld-capital.png" alt="LD Capital" style="height:56px;width:auto">
+  <div>
+    <div class="ldx-wordmark">LDX <span style="color:var(--ldx-sky-400)">·</span> LEXICON ACADEMY</div>
+    <div class="ldx-tag">Interactive reference · flashcards · quizzes · print-ready · master the language of institutional finance</div>
+  </div>
+  <div class="ldx-right">
+    <div class="ldx-eyebrow">First Edition</div>
+    <div style="font-family:var(--ldx-serif);color:var(--ldx-navy-700);font-weight:700;font-size:18px" id="term-count">52 terms</div>
+  </div>
+</header>
+
+<nav class="tab-strip" id="tabs">
+  <button class="tab active" data-view="lessons">Lessons</button>
+  <button class="tab" data-view="flashcards">Flashcards</button>
+  <button class="tab" data-view="quiz">Quiz</button>
+  <button class="tab" data-view="cheatsheet">Cheat Sheet</button>
+  <button class="tab" data-view="principle">Principle</button>
+  <button class="tab" onclick="window.print()">Print / PDF</button>
+</nav>
+
+<div class="progress-ribbon">
+  <div class="metric"><div class="n" id="pr-read">0</div><div class="l">Terms Read</div></div>
+  <div class="metric"><div class="n" id="pr-flash">0</div><div class="l">Flashcards Reviewed</div></div>
+  <div class="metric"><div class="n" id="pr-quiz1">—</div><div class="l">Translate Score</div></div>
+  <div class="metric"><div class="n" id="pr-quiz2">—</div><div class="l">Spot the Offender</div></div>
+  <div class="metric"><div class="n" id="pr-quiz3">—</div><div class="l">Complete the Sentence</div></div>
+  <button class="cert-btn" id="cert-open">Claim Certificate</button>
+</div>
+
+<!-- ═══════ LESSONS ═══════ -->
+<section class="view active" id="v-lessons">
+  <input type="text" class="search-bar" id="search" placeholder="Search terms, definitions, or the crypto vocab they replace…">
+  <div id="lessons-body"></div>
+</section>
+
+<!-- ═══════ FLASHCARDS ═══════ -->
+<section class="view" id="v-flashcards">
+  <div class="flashcard-stage">
+    <div class="flashcard" id="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-face front">
+          <div class="flashcard-eyebrow">If a client says…</div>
+          <div class="flashcard-jargon" id="fc-jargon">wallet</div>
+          <div class="flashcard-cta">Click to reveal how we answer →</div>
+        </div>
+        <div class="flashcard-face back">
+          <div class="flashcard-eyebrow">We answer with</div>
+          <div class="flashcard-institutional" id="fc-institutional">Custody Account</div>
+          <div class="flashcard-def" id="fc-def">An account at a qualified custodian holding client transaction assets, segregated from the firm's own assets.</div>
+        </div>
+      </div>
+    </div>
+    <div class="flashcard-controls">
+      <button class="flashcard-nav" id="fc-prev">← Prev</button>
+      <span class="flashcard-counter" id="fc-counter">1 / 52</span>
+      <button class="flashcard-nav" id="fc-next">Next →</button>
+      <button class="flashcard-mark" id="fc-mark">Mark reviewed</button>
+      <button class="flashcard-nav" id="fc-shuffle">Shuffle</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ QUIZ ═══════ -->
+<section class="view" id="v-quiz">
+  <div id="quiz-picker">
+    <div class="quiz-mode-picker">
+      <div class="quiz-mode" data-mode="translate">
+        <div class="quiz-mode-name">Translate the Jargon</div>
+        <div class="quiz-mode-desc">A client uses the informal term. Pick the correct LDX institutional replacement from four options.</div>
+        <div class="quiz-mode-score" id="score-translate">Not attempted yet</div>
+      </div>
+      <div class="quiz-mode" data-mode="offender">
+        <div class="quiz-mode-name">Spot the Offender</div>
+        <div class="quiz-mode-desc">Read the sentence. Tap every word that violates the LDX standing rules. Miss none, tag none extra.</div>
+        <div class="quiz-mode-score" id="score-offender">Not attempted yet</div>
+      </div>
+      <div class="quiz-mode" data-mode="fill">
+        <div class="quiz-mode-name">Complete the Sentence</div>
+        <div class="quiz-mode-desc">Given a client-ready LDX sentence with a blank, pick the institutional term that fits.</div>
+        <div class="quiz-mode-score" id="score-fill">Not attempted yet</div>
+      </div>
+    </div>
+    <p style="font-family:var(--ldx-serif); font-size:14px; color:var(--ldx-dim); margin-top:20px;">
+      Each mode is a 10-question run. Get eight or more correct to earn a mode badge. Complete all three to unlock the Lexicon Certificate.
+    </p>
+  </div>
+
+  <div id="quiz-runner" style="display:none;">
+    <div class="quiz-progress">
+      <span id="quiz-mode-label">Translate the Jargon</span>
+      <span>Question <span id="quiz-q">1</span> / 10 · Correct: <span id="quiz-correct">0</span> · <span class="streak" id="quiz-streak">Streak 0</span></span>
+      <button style="border:none; background:transparent; color:var(--ldx-dim); cursor:pointer; font-size:11px; letter-spacing:0.08em; text-transform:uppercase;" onclick="exitQuiz()">Exit ×</button>
+    </div>
+    <div class="quiz-stage" id="quiz-stage"></div>
+  </div>
+</section>
+
+<!-- ═══════ CHEAT SHEET ═══════ -->
+<section class="view" id="v-cheatsheet">
+  <div class="cheat-container">
+    <div class="cheat-title">Quick Reference — Say This, Not That</div>
+    <table class="cheat-table">
+      <thead><tr><th>Never Say</th><th>Always Say</th></tr></thead>
+      <tbody id="cheat-body"></tbody>
+    </table>
+  </div>
+
+  <div class="cheat-principle">
+    <strong>The LDX Guiding Principle:</strong> Technology is never the product. Ownership, settlement, custody, compliance, and capital formation are the product. The technology is simply the infrastructure through which those functions are performed.
+    <span class="attrib">— The LDX Lexicon, First Edition</span>
+  </div>
+</section>
+
+<!-- ═══════ PRINCIPLE / STANDING RULES ═══════ -->
+<section class="view" id="v-principle">
+  <div style="background:var(--ldx-paper); padding:36px 42px; border:1px solid var(--ldx-line); border-top:4px solid var(--ldx-navy-700);">
+    <h1 style="font-size:28px; margin-bottom:14px;">How to Use This Reference</h1>
+    <p style="font-family:var(--ldx-serif); font-size:16px; line-height:1.75; color:var(--ldx-ink); margin-bottom:18px;">
+      LD Capital's execution platform uses technology often described elsewhere with speculative vocabulary. We do not use that vocabulary — <em>not because the technology differs, but because precision matters</em>. Every capability we offer has a proper name in banking, securities, and compliance practice. This lexicon defines each term as we use it, notes the informal word it replaces, and shows the term in a working sentence.
+    </p>
+
+    <div class="cheat-principle" style="margin-top:24px;">
+      <strong>The standing rule:</strong> if a term below has a "replaces" line, the replaced word does not appear in LD Capital client materials, marketing, or conversation. When a client uses the informal word, we answer accurately — using ours.
+    </div>
+
+    <h2>The Five LDX Standing Rules</h2>
+    <ol style="font-family:var(--ldx-serif); font-size:15px; line-height:1.85; color:var(--ldx-ink); padding-left:22px; margin-top:8px;">
+      <li><strong>No crypto / token / blockchain vocabulary</strong> in client-facing surfaces. Use the institutional term. Every time.</li>
+      <li><strong>No solicitation of investment.</strong> Any private program is described only as "by invitation, through official offering documents when released."</li>
+      <li><strong>Only verified claims.</strong> $4.5B+ (per LD Realty Capital records), founded 1996, four active divisions, OCC-chartered national trust bank custody arrangement executed.</li>
+      <li><strong>Every outbound piece carries the informational-purposes disclaimer.</strong></li>
+      <li><strong>Nothing goes out before Niraj Sheth approves final copy.</strong></li>
+    </ol>
+
+    <h2>Why This Matters</h2>
+    <p style="font-family:var(--ldx-serif); font-size:15px; line-height:1.7; color:var(--ldx-ink);">
+      Institutional finance is a business of trust, and trust is transmitted through language. A client, a regulator, a family office, or a broker-dealer counterparty hearing "wallet" hears one industry. Hearing "custody account" hears another. LD Capital operates in one industry — the regulated one — and our language must reflect that at every touchpoint.
+    </p>
+    <p style="font-family:var(--ldx-serif); font-size:15px; line-height:1.7; color:var(--ldx-ink);">
+      The technology underneath LDX is modern and often shares mechanics with instruments described elsewhere with speculative vocabulary. That is a technical curiosity, not a description of our business. Ownership, settlement, custody, compliance, and capital formation are our business. The technology is simply the infrastructure through which those functions are performed.
+    </p>
+  </div>
+</section>
+
+<footer class="ldx-disclaimer" style="margin-top:32px;">
+  <strong>The LDX Lexicon Academy · First Edition</strong> — LD Capital LLC · Atlanta, Georgia · 770-272-2232 · ldrcllc.com. For client education and internal use. This reference describes terminology and platform capabilities; it is not an offer of securities, and it is not legal, tax, or investment advice. Securities activities are conducted only with and through appropriately registered firms. Terms describing regulated roles (broker-dealer, transfer agent, qualified custodian, ATS) refer to the registered third parties performing those roles. &copy; LD Capital LLC.
+</footer>
+
+</div>
+
+<!-- ═══════ CERTIFICATE OVERLAY ═══════ -->
+<div id="cert-overlay" onclick="if(event.target===this) closeCert()">
+  <div class="certificate">
+    <img class="cert-seal" src="./ldx-assets/logos/ld-capital.png" alt="">
+    <div class="cert-header">The LDX Lexicon Academy · Certificate of Completion</div>
+    <div class="cert-title">Mastery of the Institutional Lexicon</div>
+    <div class="cert-tag">First Edition · LD Capital LLC · Since 1996</div>
+    <div class="cert-body">This certifies that</div>
+    <div class="cert-name-line">
+      <input class="cert-name-input" id="cert-name" placeholder="Your Name" maxlength="60">
+    </div>
+    <div class="cert-body">
+      has completed the LDX Lexicon Academy — mastering the vocabulary of modern settlement, digital securities, custody, and capital formation as practiced at LD Capital.
+    </div>
+    <div class="cert-signature">
+      <div class="cert-sig-block">
+        <div class="cert-sig-name" style="font-style:italic;">Niraj "Nick" Sheth</div>
+        <div class="cert-sig-title">Founder, President &amp; CEO · LD Capital · The Loan Depot Lending Co., Inc.</div>
+      </div>
+      <div class="cert-sig-block" style="text-align:right;">
+        <div class="cert-sig-name" id="cert-date">—</div>
+        <div class="cert-sig-title">Date awarded</div>
+      </div>
+    </div>
+    <div class="cert-hash" id="cert-hash">SHA-256: 00000000000000000000000000000000</div>
+    <div class="cert-buttons">
+      <button class="cert-btn primary" onclick="window.print()">Print Certificate</button>
+      <button class="cert-btn" onclick="closeCert()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════════════════
+// LDX LEXICON DATA — 52 terms + cheat sheet + quiz banks
+// ══════════════════════════════════════════════════════════════════════════════
+
+const LEX = [
+  { term:"Accredited Investor", pos:"n.", replaces:null, letter:"A",
+    def:"An investor meeting SEC income or net-worth thresholds (Reg D, Rule 501), eligible to participate in private securities offerings. Eligibility is verified, not self-declared, in 506(c) offerings.",
+    ex:"Participation is limited to verified accredited investors." },
+  { term:"Alternative Trading System (ATS)", pos:"n.", replaces:"crypto exchange · secondary token market", letter:"A",
+    def:"An SEC-regulated marketplace, operated by a registered broker-dealer, where private securities may trade after issuance.",
+    ex:"Interests may become eligible for resale on a regulated alternative trading system." },
+  { term:"Automated Settlement Instruction", pos:"n.", replaces:"smart contract", letter:"A",
+    def:"Pre-agreed transaction terms executed automatically by the settlement platform when verified conditions are met — a draw releasing only upon inspection sign-off, for example.",
+    ex:"The draw released the same day because the automated settlement instruction verified the inspector's certification." },
+  { term:"Book-Entry Interest", pos:"n.", replaces:"token · digital coin", letter:"B",
+    def:"Ownership recorded electronically on an official register rather than by paper certificate — the standard form of virtually all modern securities, including U.S. Treasuries since 1986.",
+    ex:"Investors hold book-entry interests recorded by the transfer agent." },
+  { term:"Broker-Dealer", pos:"n.", replaces:null, letter:"B",
+    def:"A firm registered with the SEC and FINRA to effect securities transactions. Private placements with success-based compensation require one in the chain.",
+    ex:"Distribution is conducted through a registered broker-dealer." },
+  { term:"Custody Account", pos:"n.", replaces:"wallet", letter:"C",
+    def:"An account at a qualified custodian holding client transaction assets, segregated from the firm's own assets.",
+    ex:"Transaction assets are held in segregated custody accounts." },
+  { term:"Collateralized Credit Facility", pos:"n.", replaces:"DeFi borrowing · crypto loan", letter:"C",
+    def:"A borrowing arrangement secured by pledged assets, with advance rates and collateral requirements set by the lender or venue at approval — never assumed in advance.",
+    ex:"Advance rates under a collateralized credit facility are published by the lender at approval." },
+  { term:"Compliance Gate", pos:"n.", replaces:null, letter:"C",
+    def:"A control requiring identity verification, sanctions screening, and eligibility confirmation to pass before any movement of value. On the LDX platform this check is structural: a transaction cannot occur without it.",
+    ex:"Every disbursement passes the compliance gate before funds move." },
+  { term:"Digital Security", pos:"n.", replaces:"security token · tokenized asset", letter:"D",
+    def:"A conventional security — debt, equity, or a fund interest — whose ownership record is maintained in modern electronic form with transfer restrictions enforced automatically. Regulated identically to its paper ancestor.",
+    ex:"The offering will be issued as digital securities with restrictions enforced at the record level." },
+  { term:"Digital Dollar Instrument", pos:"n.", replaces:"stablecoin · crypto dollars", letter:"D",
+    def:"A fully-reserved, dollar-denominated payment instrument issued under federal oversight (per 2025 federal payment-stablecoin legislation), redeemable one-for-one and used for same-day settlement.",
+    ex:"Settlement may occur by wire or by regulated digital dollar instrument, at the client's preference." },
+  { term:"Disbursement Rails", pos:"n.", replaces:null, letter:"D",
+    def:"The regulated payment channels — ACH, Fedwire, ISO 20022 messaging, and regulated digital settlement — through which committed funds move. Rails move money; they are never the source of it.",
+    ex:"Once the facility funds, proceeds move through our disbursement rails within the day." },
+  { term:"Dual-Record System", pos:"n.", replaces:null, letter:"D",
+    def:"The compliance architecture in which a registered transfer agent maintains the authoritative ownership register (the \"golden record\") while the settlement ledger serves as a synchronized secondary record. A lost credential never means lost ownership.",
+    ex:"Under the dual-record system, the transfer agent can always restore an investor's position." },
+  { term:"Eligibility Verification", pos:"n.", replaces:"whitelisting", letter:"E",
+    def:"Confirmation — before any transfer — that a counterparty meets the offering's requirements: identity, accreditation, jurisdiction, sanctions clearance.",
+    ex:"Transfers settle only between parties that have completed eligibility verification." },
+  { term:"Golden Record", pos:"n.", replaces:null, letter:"G",
+    def:"The single authoritative register of ownership, maintained by the issuer or its registered transfer agent. See Dual-Record System.",
+    ex:"The transfer agent maintains the golden record of every holder." },
+  { term:"Independent Data Attestation", pos:"n.", replaces:"oracle", letter:"I",
+    def:"A signed, verifiable certification of an off-platform fact — an inspector's milestone sign-off, a meter reading, an appraisal value — required before dependent transactions may proceed.",
+    ex:"Each construction draw requires an independent data attestation from the site inspector." },
+  { term:"Issue / Redeem", pos:"v.", replaces:"mint / burn", letter:"I",
+    def:"To create interests upon subscription; to retire them upon repayment or withdrawal — the vocabulary of every fund administrator for a century.",
+    ex:"Interests are issued at subscription and redeemed at maturity." },
+  { term:"Ledger Reconciliation", pos:"n.", replaces:"chain verification", letter:"L",
+    def:"The process of verifying that transaction records, custody records, transfer-agent records, and banking records remain synchronized and accurate.",
+    ex:"Daily ledger reconciliation is performed between the settlement ledger and the transfer agent's records." },
+  { term:"Liquidity Venue", pos:"n.", replaces:"token marketplace", letter:"L",
+    def:"A regulated marketplace, trading venue, broker-dealer network, or approved transaction mechanism through which ownership interests may be transferred.",
+    ex:"Transfers may occur through an approved liquidity venue following compliance review." },
+  { term:"Limited Offering", pos:"n.", replaces:"private token sale", letter:"L",
+    def:"A securities offering conducted pursuant to an exemption from public registration requirements.",
+    ex:"The interests are being offered through a limited offering to eligible investors." },
+  { term:"Market Infrastructure Provider", pos:"n.", replaces:"protocol", letter:"M",
+    def:"A regulated or contracted service provider supporting issuance, custody, settlement, compliance, transfer, or trading functions.",
+    ex:"The market infrastructure provider supports settlement and ownership record synchronization." },
+  { term:"Membership Interest", pos:"n.", replaces:"governance token", letter:"M",
+    def:"An ownership interest in a limited liability company.",
+    ex:"Investors acquire membership interests in M Helen Hotel LLC." },
+  { term:"Milestone Certification", pos:"n.", replaces:"oracle update", letter:"M",
+    def:"Verification by an approved third party that a contractual project milestone has been completed.",
+    ex:"The verified draw required milestone certification before release." },
+  { term:"Multi-Party Authorization", pos:"n.", replaces:"multi-sig", letter:"M",
+    def:"A control requiring multiple independent approvals — e.g., two of three designated officers — before a transaction executes. No single individual, including any service provider, can move client assets alone.",
+    ex:"All custody movements require multi-party authorization under the account agreement." },
+  { term:"Net Asset Value (NAV) Reporting", pos:"n.", replaces:null, letter:"N",
+    def:"Regular, independently sourced valuation of an interest, published to the ownership register — enabling accurate pricing for subscriptions, redemptions, and collateral.",
+    ex:"NAV reporting is updated on the register from independent appraisal and audited financials." },
+  { term:"Nominee Holder", pos:"n.", replaces:null, letter:"N",
+    def:"A custodian, transfer agent, or intermediary that holds record title on behalf of beneficial owners.",
+    ex:"Certain interests may be held through nominee holders." },
+  { term:"Notice of Corporate Action", pos:"n.", replaces:"governance proposal", letter:"N",
+    def:"A formal communication regarding distributions, redemptions, voting events, reorganizations, or amendments.",
+    ex:"Investors received notice of corporate action through the transfer agent." },
+  { term:"Operating Reserve", pos:"n.", replaces:"treasury pool", letter:"O",
+    def:"Funds maintained for project continuity, debt service, maintenance, or contingencies.",
+    ex:"A portion of offering proceeds may be allocated to the operating reserve." },
+  { term:"Ownership Register", pos:"n.", replaces:"holder wallet list", letter:"O",
+    def:"The official list of holders maintained by the issuer or transfer agent.",
+    ex:"Only owners recorded on the ownership register may receive distributions." },
+  { term:"Payment-versus-Delivery Settlement (PvD)", pos:"n.", replaces:"atomic swap", letter:"P",
+    def:"A settlement mechanism ensuring ownership transfers only when corresponding payment is simultaneously confirmed.",
+    ex:"The transaction was completed using payment-versus-delivery settlement." },
+  { term:"Portfolio Reporting", pos:"n.", replaces:"wallet dashboard", letter:"P",
+    def:"Periodic reporting on investor positions, valuations, distributions, and transaction activity.",
+    ex:"Quarterly portfolio reporting will be made available through the investor portal." },
+  { term:"Position Statement", pos:"n.", replaces:"wallet balance", letter:"P",
+    def:"A statement confirming current ownership and transaction history.",
+    ex:"Investors may request a position statement from the transfer agent." },
+  { term:"Private Placement", pos:"n.", replaces:null, letter:"P",
+    def:"An offering of securities to a limited class of eligible investors under SEC Regulation D, made exclusively through official offering documents (a private placement memorandum, or PPM).",
+    ex:"Full terms will be available in the private placement memorandum." },
+  { term:"Qualified Custodian", pos:"n.", replaces:"crypto custodian", letter:"Q",
+    def:"A regulated institution — such as an OCC-chartered national trust bank — legally authorized to safeguard client assets under fiduciary standards, with segregation and insurance requirements.",
+    ex:"Assets are safeguarded through arrangements with an OCC-chartered qualified custodian." },
+  { term:"Record-Level Compliance", pos:"n.", replaces:"on-chain compliance", letter:"R",
+    def:"Compliance controls enforced directly through the ownership system.",
+    ex:"Transfer restrictions are enforced through record-level compliance." },
+  { term:"Registered Ownership", pos:"n.", replaces:"token holder", letter:"R",
+    def:"Ownership reflected on the official register.",
+    ex:"Only registered owners may vote on company matters." },
+  { term:"Reserve Asset", pos:"n.", replaces:"backing collateral", letter:"R",
+    def:"Assets maintained to support obligations, payments, or liquidity requirements.",
+    ex:"Reserve assets are maintained pursuant to program requirements." },
+  { term:"Securities Administration", pos:"n.", replaces:"protocol operations", letter:"S",
+    def:"The ongoing management of ownership records, distributions, reporting, and compliance obligations.",
+    ex:"Securities administration is conducted through approved service providers." },
+  { term:"Securities Servicing", pos:"n.", replaces:"token management", letter:"S",
+    def:"Operational support functions performed after issuance.",
+    ex:"Securities servicing includes distributions, reporting, and ownership updates." },
+  { term:"Settlement Finality", pos:"n.", replaces:"transaction confirmation", letter:"S",
+    def:"The point at which a transaction becomes irrevocable under governing rules.",
+    ex:"Settlement finality occurred immediately following payment verification." },
+  { term:"Settlement Ledger", pos:"n.", replaces:"blockchain · on-chain", letter:"S",
+    def:"The shared, tamper-evident electronic record on which transactions clear and settle — each entry time-stamped, verified, and permanent. The modern successor to batch reconciliation.",
+    ex:"Every disbursement is recorded on the settlement ledger the moment it clears." },
+  { term:"Signing Credential", pos:"n.", replaces:"private key", letter:"S",
+    def:"The cryptographic authorization by which a designated officer approves a transaction — the electronic equivalent of an authorized signature, governed by the same board resolutions.",
+    ex:"Signing credentials are held only by officers named in the authorized signer agreement." },
+  { term:"Subscription Proceeds", pos:"n.", replaces:"raise proceeds", letter:"S",
+    def:"Capital received from investors purchasing securities.",
+    ex:"Subscription proceeds remain subject to offering conditions." },
+  { term:"Transaction Authorization Matrix", pos:"n.", replaces:"signer permissions", letter:"T",
+    def:"The approval hierarchy defining which parties may authorize transactions.",
+    ex:"The authorization matrix requires dual approval for disbursements." },
+  { term:"Transaction Lifecycle", pos:"n.", replaces:"smart contract execution flow", letter:"T",
+    def:"The complete process from initiation through settlement, reconciliation, and reporting.",
+    ex:"The transaction lifecycle is documented and auditable." },
+  { term:"Transfer Agent", pos:"n.", replaces:null, letter:"T",
+    def:"The SEC-registered keeper of the official ownership register, responsible for recording transfers, replacing lost evidence of ownership, and administering distributions.",
+    ex:"The transfer agent maintains the golden record of every holder." },
+  { term:"Transfer Event", pos:"n.", replaces:"token transfer", letter:"T",
+    def:"Any approved change in ownership.",
+    ex:"Each transfer event must satisfy eligibility verification." },
+  { term:"Transfer Restriction", pos:"n.", replaces:null, letter:"T",
+    def:"A rule limiting who may hold or receive an interest — enforced automatically at the record level, so a non-eligible transfer simply cannot settle.",
+    ex:"Restrictions under Rule 144A are enforced automatically by the register." },
+  { term:"Underlying Asset", pos:"n.", replaces:"underlying token value", letter:"U",
+    def:"The property, company, loan, fund, or contractual right associated with an investment.",
+    ex:"The underlying asset is the M Helen Hotel development project." },
+  { term:"Valuation Record", pos:"n.", replaces:"price feed", letter:"V",
+    def:"A documented assessment of asset value prepared by qualified professionals.",
+    ex:"The valuation record shall be updated as new appraisals become available." },
+  { term:"Verification Provider", pos:"n.", replaces:"KYC oracle", letter:"V",
+    def:"A firm responsible for performing identity, accreditation, sanction, or eligibility reviews.",
+    ex:"The verification provider confirms investor eligibility." },
+  { term:"Verified Draw", pos:"n.", replaces:null, letter:"V",
+    def:"A construction disbursement released only upon independent attestation of milestone completion and simultaneous exchange of the corresponding lien waiver — payment and waiver settling as one transaction.",
+    ex:"Verified draws eliminate the pay-first, waiver-later gap entirely." },
+  { term:"Workflow Automation", pos:"n.", replaces:"smart-contract automation", letter:"W",
+    def:"Technology used to automate approvals, compliance checks, notifications, and settlement processing.",
+    ex:"Workflow automation reduced processing times significantly." },
+];
+
+const CHEAT = [
+  ["blockchain / on-chain",       "settlement ledger / on the ledger of record"],
+  ["blockchain protocol",         "settlement infrastructure"],
+  ["token / coin",                "digital security / book-entry interest"],
+  ["tokenization",                "digital issuance / modern book-entry securitization"],
+  ["token holder",                "registered owner"],
+  ["token transfer",              "transfer event"],
+  ["token launch",                "digital issuance"],
+  ["token marketplace",           "liquidity venue"],
+  ["token management",            "securities servicing"],
+  ["governance token",            "membership interest"],
+  ["crypto wallet",               "custody account"],
+  ["wallet balance",              "position statement"],
+  ["wallet dashboard",            "portfolio reporting"],
+  ["smart contract",              "automated settlement instruction"],
+  ["smart-contract automation",   "workflow automation"],
+  ["smart contract execution flow","transaction lifecycle"],
+  ["stablecoin",                  "regulated digital dollar instrument"],
+  ["whitelisting",                "eligibility verification"],
+  ["mint / burn",                 "issue / redeem"],
+  ["multi-sig",                   "multi-party authorization"],
+  ["private key",                 "signing credential"],
+  ["signer permissions",          "transaction authorization matrix"],
+  ["oracle",                      "independent data attestation"],
+  ["oracle update",               "milestone certification"],
+  ["KYC oracle",                  "verification provider"],
+  ["DeFi lending",                "collateralized credit facility"],
+  ["crypto exchange",             "regulated alternative trading system"],
+  ["crypto custodian",            "qualified custodian"],
+  ["atomic swap",                 "payment-versus-delivery settlement"],
+  ["treasury pool",               "operating reserve"],
+  ["backing collateral",          "reserve asset"],
+  ["price feed",                  "valuation record"],
+  ["protocol",                    "market infrastructure provider"],
+  ["protocol operations",         "securities administration"],
+  ["on-chain compliance",         "record-level compliance"],
+  ["holder wallet list",          "ownership register"],
+  ["governance proposal",         "notice of corporate action"],
+  ["chain verification",          "ledger reconciliation"],
+  ["private token sale",          "limited offering"],
+  ["underlying token value",      "underlying asset"],
+  ["raise proceeds",              "subscription proceeds"],
+  ["transaction confirmation",    "settlement finality"],
+  ["liquidity mining",            "incentive program"],
+  ["staking",                     "participation program"],
+];
+
+// ══════════════════════════════════════════════════════════════════════════════
+// STATE + LOCAL STORAGE
+// ══════════════════════════════════════════════════════════════════════════════
+
+const STATE = JSON.parse(localStorage.getItem('ldx-lex-state') || '{}');
+STATE.termsRead = STATE.termsRead || {};
+STATE.flashSeen = STATE.flashSeen || {};
+STATE.scores    = STATE.scores    || {};
+function save() { localStorage.setItem('ldx-lex-state', JSON.stringify(STATE)); refreshRibbon(); }
+
+document.getElementById('term-count').textContent = LEX.length + ' terms';
+
+function refreshRibbon() {
+  document.getElementById('pr-read').textContent  = Object.keys(STATE.termsRead).length;
+  document.getElementById('pr-flash').textContent = Object.keys(STATE.flashSeen).length;
+  document.getElementById('pr-quiz1').textContent = STATE.scores.translate ?? '—';
+  document.getElementById('pr-quiz2').textContent = STATE.scores.offender  ?? '—';
+  document.getElementById('pr-quiz3').textContent = STATE.scores.fill      ?? '—';
+  document.getElementById('score-translate').textContent = STATE.scores.translate != null ? `Best: ${STATE.scores.translate}/10` : 'Not attempted yet';
+  document.getElementById('score-offender').textContent  = STATE.scores.offender  != null ? `Best: ${STATE.scores.offender}/10`  : 'Not attempted yet';
+  document.getElementById('score-fill').textContent      = STATE.scores.fill      != null ? `Best: ${STATE.scores.fill}/10`      : 'Not attempted yet';
+
+  const eligible = (STATE.scores.translate ?? 0) >= 8 && (STATE.scores.offender ?? 0) >= 8 && (STATE.scores.fill ?? 0) >= 8;
+  const btn = document.getElementById('cert-open');
+  if (eligible) { btn.classList.add('unlocked'); btn.textContent = 'Claim Certificate ✓'; }
+  else { btn.classList.remove('unlocked'); btn.textContent = 'Certificate locked'; }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════════════════════════════════════
+
+document.querySelectorAll('#tabs .tab[data-view]').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('#tabs .tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('v-' + t.dataset.view).classList.add('active');
+  });
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
+// LESSONS
+// ══════════════════════════════════════════════════════════════════════════════
+
+function renderLessons(filter = '') {
+  const body = document.getElementById('lessons-body');
+  body.innerHTML = '';
+  const f = filter.trim().toLowerCase();
+  let curLetter = null;
+  const sorted = [...LEX].sort((a, b) => a.term.localeCompare(b.term));
+  const filtered = f
+    ? sorted.filter(t =>
+        t.term.toLowerCase().includes(f) ||
+        t.def.toLowerCase().includes(f) ||
+        (t.replaces || '').toLowerCase().includes(f))
+    : sorted;
+  for (const t of filtered) {
+    if (t.letter !== curLetter) {
+      curLetter = t.letter;
+      const anchor = document.createElement('div');
+      anchor.className = 'letter-anchor';
+      anchor.textContent = curLetter;
+      body.appendChild(anchor);
+    }
+    const card = document.createElement('div');
+    card.className = 'term-card' + (STATE.termsRead[t.term] ? ' mastered' : '');
+    card.innerHTML = `
+      <div class="term-name">${escapeHtml(t.term)}<span class="term-pos">${escapeHtml(t.pos)}</span></div>
+      <div class="term-def">${escapeHtml(t.def)}</div>
+      ${t.replaces ? `<div class="term-replaces"><span class="lbl">Replaces</span>${escapeHtml(t.replaces)}</div>` : ''}
+      <div class="term-example">${escapeHtml(t.ex)}</div>
+    `;
+    card.addEventListener('click', () => {
+      STATE.termsRead[t.term] = 1;
+      save();
+      card.classList.add('mastered');
+    });
+    body.appendChild(card);
+  }
+  if (!filtered.length) {
+    body.innerHTML = '<p style="text-align:center;font-family:var(--ldx-serif);color:var(--ldx-dim);margin:40px 0;font-size:15px;">No terms match. Try another search.</p>';
+  }
+}
+document.getElementById('search').addEventListener('input', e => renderLessons(e.target.value));
+renderLessons();
+
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FLASHCARDS — only cards with a "replaces" line (the ones with jargon to translate)
+// ══════════════════════════════════════════════════════════════════════════════
+
+const FLASH_DECK = LEX.filter(t => t.replaces).map(t => ({
+  jargon: t.replaces.split(' · ')[0],
+  term: t.term.replace(/ \(.+\)/, ''),
+  def: t.def,
+}));
+
+let fcIdx = 0;
+const fcCard = document.getElementById('flashcard');
+fcCard.addEventListener('click', () => fcCard.classList.toggle('flipped'));
+document.getElementById('fc-prev').addEventListener('click', () => { fcCard.classList.remove('flipped'); fcIdx = (fcIdx - 1 + FLASH_DECK.length) % FLASH_DECK.length; renderFlash(); });
+document.getElementById('fc-next').addEventListener('click', () => { fcCard.classList.remove('flipped'); fcIdx = (fcIdx + 1) % FLASH_DECK.length; renderFlash(); });
+document.getElementById('fc-shuffle').addEventListener('click', () => { FLASH_DECK.sort(() => Math.random() - 0.5); fcIdx = 0; fcCard.classList.remove('flipped'); renderFlash(); });
+document.getElementById('fc-mark').addEventListener('click', () => {
+  const t = FLASH_DECK[fcIdx].term;
+  STATE.flashSeen[t] = 1;
+  save();
+  renderFlash();
+});
+function renderFlash() {
+  const card = FLASH_DECK[fcIdx];
+  document.getElementById('fc-jargon').textContent = card.jargon;
+  document.getElementById('fc-institutional').textContent = card.term;
+  document.getElementById('fc-def').textContent = card.def;
+  document.getElementById('fc-counter').textContent = `${fcIdx + 1} / ${FLASH_DECK.length}`;
+  const mark = document.getElementById('fc-mark');
+  if (STATE.flashSeen[card.term]) { mark.classList.add('done'); mark.textContent = 'Reviewed ✓'; }
+  else { mark.classList.remove('done'); mark.textContent = 'Mark reviewed'; }
+}
+renderFlash();
+
+// ══════════════════════════════════════════════════════════════════════════════
+// QUIZ — three modes
+// ══════════════════════════════════════════════════════════════════════════════
+
+let currentQuiz = null;
+
+document.querySelectorAll('.quiz-mode').forEach(m => {
+  m.addEventListener('click', () => startQuiz(m.dataset.mode));
+});
+
+function startQuiz(mode) {
+  document.getElementById('quiz-picker').style.display = 'none';
+  document.getElementById('quiz-runner').style.display = 'block';
+  document.getElementById('quiz-mode-label').textContent = { translate: 'Translate the Jargon', offender: 'Spot the Offender', fill: 'Complete the Sentence' }[mode];
+  currentQuiz = { mode, q: 0, correct: 0, streak: 0, questions: buildQuestions(mode) };
+  renderQuizProgress();
+  renderQuestion();
+}
+function exitQuiz() {
+  document.getElementById('quiz-picker').style.display = 'block';
+  document.getElementById('quiz-runner').style.display = 'none';
+  currentQuiz = null;
+}
+window.exitQuiz = exitQuiz;
+
+function renderQuizProgress() {
+  document.getElementById('quiz-q').textContent = currentQuiz.q + 1;
+  document.getElementById('quiz-correct').textContent = currentQuiz.correct;
+  const s = document.getElementById('quiz-streak');
+  s.textContent = `Streak ${currentQuiz.streak}`;
+  s.classList.toggle('hot', currentQuiz.streak >= 3);
+}
+
+function buildQuestions(mode) {
+  const pool = LEX.filter(t => t.replaces);
+  const shuffled = [...pool].sort(() => Math.random() - 0.5).slice(0, 10);
+  if (mode === 'translate') {
+    return shuffled.map(t => {
+      const distractors = pool.filter(x => x.term !== t.term).sort(() => Math.random() - 0.5).slice(0, 3).map(x => x.term.replace(/ \(.+\)/, ''));
+      const options = [t.term.replace(/ \(.+\)/, ''), ...distractors].sort(() => Math.random() - 0.5);
+      return {
+        prompt: `A client says: <span class="quiz-jargon">${escapeHtml(t.replaces.split(' · ')[0])}</span>. What do we say?`,
+        options,
+        answer: t.term.replace(/ \(.+\)/, ''),
+        fix: t.ex,
+      };
+    });
+  }
+  if (mode === 'offender') {
+    return shuffled.map(t => {
+      const jargons = t.replaces.split(' · ').map(j => j.trim().toLowerCase());
+      const jargonPhrase = jargons[0];
+      // Build a plausible-looking BAD sentence using the jargon term
+      const templates = [
+        `Investors receive a monthly ${jargonPhrase} report showing their positions.`,
+        `Transfers occur through our ${jargonPhrase} once eligibility is verified.`,
+        `We reconcile every ${jargonPhrase} entry with the transfer agent nightly.`,
+        `The offering allows participation via ${jargonPhrase} for eligible investors.`,
+        `Each transaction requires an authorized ${jargonPhrase} before settlement.`,
+      ];
+      const sentence = templates[Math.floor(Math.random() * templates.length)];
+      return {
+        prompt: 'Tap every word or phrase in this sentence that violates the LDX standing rules:',
+        sentence,
+        offenders: [jargonPhrase],
+        fix: `Correct answer: replace with "${t.term.replace(/ \(.+\)/, '').toLowerCase()}." Example: ${t.ex}`,
+      };
+    });
+  }
+  // fill
+  return shuffled.map(t => {
+    const distractors = pool.filter(x => x.term !== t.term).sort(() => Math.random() - 0.5).slice(0, 3).map(x => x.term.replace(/ \(.+\)/, ''));
+    const options = [t.term.replace(/ \(.+\)/, ''), ...distractors].sort(() => Math.random() - 0.5);
+    const answer = t.term.replace(/ \(.+\)/, '');
+    // Replace the term in the example sentence with a blank
+    const example = t.ex;
+    const termLower = answer.toLowerCase();
+    let sentence;
+    if (example.toLowerCase().includes(termLower)) {
+      const re = new RegExp(answer.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+      sentence = example.replace(re, '<span class="fill-blank">____</span>');
+    } else {
+      sentence = example + ' <span class="fill-blank">____</span>';
+    }
+    return {
+      prompt: 'Complete this LDX sentence with the correct institutional term:',
+      sentence,
+      options,
+      answer,
+      fix: `The correct term is "${answer}." Full definition: ${t.def}`,
+    };
+  });
+}
+
+function renderQuestion() {
+  const q = currentQuiz.questions[currentQuiz.q];
+  const stage = document.getElementById('quiz-stage');
+  if (currentQuiz.mode === 'translate') {
+    stage.innerHTML = `
+      <div class="quiz-question">${q.prompt}</div>
+      <div class="quiz-options">${q.options.map(o => `<button class="quiz-option" data-opt="${escapeHtml(o)}">${escapeHtml(o)}</button>`).join('')}</div>
+      <div class="quiz-feedback" id="qfb"></div>
+    `;
+    stage.querySelectorAll('.quiz-option').forEach(b => b.addEventListener('click', () => answer('translate', b.dataset.opt, q.answer, q.fix, b, stage)));
+  } else if (currentQuiz.mode === 'offender') {
+    const words = q.sentence.split(/\s+/);
+    stage.innerHTML = `
+      <div class="quiz-question">${q.prompt}</div>
+      <div class="sentence-editor" id="sent-editor">
+        ${words.map((w, i) => `<span class="word" data-i="${i}">${escapeHtml(w)}</span>`).join(' ')}
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button class="quiz-next" id="submit-offender">Submit</button>
+      </div>
+      <div class="quiz-feedback" id="qfb"></div>
+    `;
+    const editor = document.getElementById('sent-editor');
+    editor.querySelectorAll('.word').forEach(w => w.addEventListener('click', () => w.classList.toggle('tagged')));
+    document.getElementById('submit-offender').addEventListener('click', () => {
+      const tagged = [...editor.querySelectorAll('.word.tagged')].map(w => w.textContent.toLowerCase().replace(/[.,;:!?]/g, ''));
+      const offenders = q.offenders.map(o => o.toLowerCase().split(/\s+/)).flat();
+      // Tokenize sentence, find offender-word indices
+      const words2 = q.sentence.split(/\s+/).map(w => w.toLowerCase().replace(/[.,;:!?]/g, ''));
+      const offenderIndices = new Set();
+      words2.forEach((w, i) => { if (offenders.includes(w)) offenderIndices.add(i); });
+      const taggedIndices = new Set([...editor.querySelectorAll('.word.tagged')].map(w => parseInt(w.dataset.i)));
+      const missed = [...offenderIndices].filter(i => !taggedIndices.has(i));
+      const extra  = [...taggedIndices].filter(i => !offenderIndices.has(i));
+      const correct = missed.length === 0 && extra.length === 0;
+      // Highlight
+      editor.querySelectorAll('.word').forEach((w, i) => {
+        if (offenderIndices.has(i) && !taggedIndices.has(i)) w.classList.add('miss');
+        if (taggedIndices.has(i) && !offenderIndices.has(i)) w.classList.add('wrong-tag');
+      });
+      document.getElementById('submit-offender').style.display = 'none';
+      showFeedback(correct, q.fix, stage);
+    });
+  } else { // fill
+    stage.innerHTML = `
+      <div class="quiz-question">${q.prompt}</div>
+      <div class="fill-sentence">${q.sentence}</div>
+      <div class="quiz-options">${q.options.map(o => `<button class="quiz-option" data-opt="${escapeHtml(o)}">${escapeHtml(o)}</button>`).join('')}</div>
+      <div class="quiz-feedback" id="qfb"></div>
+    `;
+    stage.querySelectorAll('.quiz-option').forEach(b => b.addEventListener('click', () => answer('fill', b.dataset.opt, q.answer, q.fix, b, stage)));
+  }
+}
+
+function answer(mode, chosen, correct, fix, btn, stage) {
+  const ok = chosen === correct;
+  stage.querySelectorAll('.quiz-option').forEach(x => {
+    x.disabled = true;
+    if (x.dataset.opt === correct) x.classList.add('correct');
+    else if (x === btn && !ok) x.classList.add('wrong');
+  });
+  showFeedback(ok, fix, stage);
+}
+
+function showFeedback(ok, fix, stage) {
+  if (ok) { currentQuiz.correct++; currentQuiz.streak++; }
+  else    { currentQuiz.streak = 0; }
+  renderQuizProgress();
+  const fb = document.getElementById('qfb');
+  fb.className = 'quiz-feedback show ' + (ok ? 'ok' : 'err');
+  fb.innerHTML = `<strong>${ok ? 'Correct.' : 'Off the mark.'}</strong><div class="fix">${escapeHtml(fix)}</div>`;
+  const next = document.createElement('button');
+  next.className = 'quiz-next';
+  next.textContent = currentQuiz.q === currentQuiz.questions.length - 1 ? 'See results →' : 'Next question →';
+  next.addEventListener('click', () => {
+    if (currentQuiz.q === currentQuiz.questions.length - 1) finishQuiz();
+    else { currentQuiz.q++; renderQuizProgress(); renderQuestion(); }
+  });
+  stage.appendChild(next);
+}
+
+function finishQuiz() {
+  const score = currentQuiz.correct;
+  const mode = currentQuiz.mode;
+  const prev = STATE.scores[mode] ?? 0;
+  if (score > prev) STATE.scores[mode] = score;
+  save();
+  const stage = document.getElementById('quiz-stage');
+  const passed = score >= 8;
+  stage.innerHTML = `
+    <div style="text-align:center; padding:30px 20px;">
+      <div style="font-family:var(--ldx-sans);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ldx-dim);">Round complete</div>
+      <div style="font-family:var(--ldx-serif);font-size:64px;font-weight:700;color:${passed ? 'var(--ldx-ok)' : 'var(--ldx-navy-700)'};margin:8px 0;">${score}/10</div>
+      <div style="font-family:var(--ldx-serif);font-size:18px;color:var(--ldx-navy-700);margin-bottom:20px;">
+        ${passed ? 'Mode mastered ✓ — badge earned toward the Lexicon Certificate.' : `Get 8 or more to earn this mode's badge. Your best: ${STATE.scores[mode] ?? 0}/10.`}
+      </div>
+      <button class="quiz-next" onclick="startQuiz('${mode}')">Try again</button>
+      <button class="quiz-next" style="background:var(--ldx-paper);color:var(--ldx-navy-700);border:1px solid var(--ldx-navy-700);margin-left:8px;" onclick="exitQuiz()">Back to modes</button>
+    </div>
+  `;
+}
+window.startQuiz = startQuiz;
+
+// ══════════════════════════════════════════════════════════════════════════════
+// CHEAT SHEET
+// ══════════════════════════════════════════════════════════════════════════════
+
+const cheatBody = document.getElementById('cheat-body');
+CHEAT.forEach(([bad, good]) => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="never">${escapeHtml(bad)}</td><td class="always">${escapeHtml(good)}</td>`;
+  cheatBody.appendChild(tr);
+});
+
+// ══════════════════════════════════════════════════════════════════════════════
+// CERTIFICATE
+// ══════════════════════════════════════════════════════════════════════════════
+
+document.getElementById('cert-open').addEventListener('click', () => {
+  const eligible = (STATE.scores.translate ?? 0) >= 8 && (STATE.scores.offender ?? 0) >= 8 && (STATE.scores.fill ?? 0) >= 8;
+  if (!eligible) {
+    alert('Certificate locked. Score 8 or more in all three quiz modes to unlock.');
+    return;
+  }
+  document.getElementById('cert-overlay').classList.add('show');
+  document.getElementById('cert-date').textContent = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+  // Deterministic hash for record
+  const key = `${STATE.scores.translate}-${STATE.scores.offender}-${STATE.scores.fill}-LDX`;
+  crypto.subtle.digest('SHA-256', new TextEncoder().encode(key)).then(buf => {
+    const hex = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+    document.getElementById('cert-hash').textContent = 'SHA-256: ' + hex;
+  });
+});
+function closeCert() { document.getElementById('cert-overlay').classList.remove('show'); }
+window.closeCert = closeCert;
+
+refreshRibbon();
+</script>
+</body>
+</html>

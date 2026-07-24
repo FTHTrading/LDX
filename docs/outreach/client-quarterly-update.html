@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><title>LDX Quarterly Update · LD Capital</title>
+<link rel="icon" type="image/png" href="../ldx-assets/logos/ld-capital.png">
+<link rel="stylesheet" href="./_template.css">
+</head><body>
+
+<div class="letter-wrap">
+
+<nav class="nav-strip">
+  <a href="../outreach.html">← Outreach Catalog</a>
+  <a href="../letter.html">Original LDX Letter</a>
+  <div class="actions">
+    <button class="btn ok" onclick="copyPlain()">Copy Plaintext</button>
+    <button class="btn primary" onclick="window.print()">Print / PDF</button>
+  </div>
+</nav>
+
+<div class="envelope">
+  <div class="meta">
+    <div class="row"><span class="k">To</span> [First Name] — Valued LD Capital Client</div>
+    <div class="row"><span class="k">From</span> Niraj "Nick" Sheth · LD Capital · Atlanta</div>
+    <div class="row"><span class="k">Cadence</span> Quarterly LDX Update — one page, real milestones only</div>
+  </div>
+  <div class="subject">LDX Update — [Quarter Year] — what's live, what's next, what's on your plate</div>
+</div>
+
+<article class="letter" id="letter-body">
+
+  <div class="brandbar">
+    <img src="../ldx-assets/logos/ld-capital.png" alt="LD Capital">
+    <div>
+      <div class="name">LDX <span style="color:var(--ldx-sky-400)">·</span> LD CAPITAL</div>
+      <div class="sub">The Loan Depot · LD Realty Capital · Since 1996</div>
+    </div>
+  </div>
+
+  <p>Dear [First Name],</p>
+
+  <p>This is the LDX quarterly update — one page, real milestones only. If a milestone is not live, it does not appear here.</p>
+
+  <h3>What has moved this quarter</h3>
+  <ul>
+    <li><strong>[Milestone 1]</strong> — [one sentence of what shipped, verifiable outcome for clients]</li>
+    <li><strong>[Milestone 2]</strong> — [one sentence]</li>
+    <li><strong>[Milestone 3]</strong> — [one sentence]</li>
+  </ul>
+
+  <div class="highlight">
+    <strong>What this means for you.</strong> [One or two sentences that translate the milestones above into the borrower's experience: closings, draws, disbursements, or reporting they can actually see.]
+  </div>
+
+  <h3>Programs we are actively engaging</h3>
+  <ul>
+    <li><strong>Hospitality construction-to-perm financing</strong> — [current status, e.g., "actively originating"]</li>
+    <li><strong>SBA / USDA + federal energy incentive packaging</strong> — [current status]</li>
+    <li><strong>Restoration &amp; insurance-recovery lending</strong> — [current status]</li>
+    <li><strong>EB-5 Bridge to USA</strong> — [current status]</li>
+    <li><strong>Private CRE income opportunities</strong> — by invitation, through official offering documents when released</li>
+  </ul>
+
+  <h3>What's on your plate — where LDX can help</h3>
+  <p>If you have a refinance coming due, a project entering the ground, an insurance claim to organize, or a family member abroad thinking about EB-5 — this is the moment to have that conversation. Your relationship manager will reach out. If you would rather start it, call me directly at 770-272-2232, or email my office at kevan@ldrcllc.com.</p>
+
+  <p>Same team. Same standards. Same promise — help, protect, and educate.</p>
+
+  <p>With gratitude,</p>
+
+  <div class="signature">
+    <div class="name">Niraj &ldquo;Nick&rdquo; Sheth</div>
+    <div class="title">Founder, President &amp; Chief Executive Officer<br>LD Capital · The Loan Depot Lending Co., Inc.</div>
+    <div class="contact">770-272-2232 · ldrcllc.com · Atlanta, Georgia</div>
+  </div>
+
+  <div class="disclaimer">
+    This update is for informational purposes only and is not an offer to sell or a solicitation of an offer to buy any security or investment product. Loan programs are subject to underwriting, eligibility, and applicable state and federal regulation. Historical volume figures per LD Realty Capital company records. LD Capital LLC · Atlanta, GA · 770-272-2232 · ldrcllc.com.
+  </div>
+</article>
+
+<div class="action-bar">
+  <button class="btn ok" onclick="copyPlain()">Copy Plaintext</button>
+  <button class="btn primary" onclick="window.print()">Print / PDF</button>
+</div>
+
+</div>
+
+<script>
+function copyPlain() {
+  const html = document.getElementById('letter-body').innerText;
+  navigator.clipboard.writeText(html).then(() => alert('Plaintext copied to clipboard'));
+}
+</script>
+</body></html>

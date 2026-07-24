@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><title>LDX → Fireblocks · Institutional Settlement Rails</title>
+<link rel="icon" type="image/png" href="../ldx-assets/logos/ld-capital.png">
+<link rel="stylesheet" href="./_template.css">
+</head><body>
+
+<div class="letter-wrap">
+
+<nav class="nav-strip">
+  <a href="../outreach.html">← Outreach Catalog</a>
+  <a href="../status.html">LDX Status Page</a>
+  <div class="actions">
+    <button class="btn ok" onclick="copyPlain()">Copy Plaintext</button>
+    <button class="btn primary" onclick="window.print()">Print / PDF</button>
+  </div>
+</nav>
+
+<div class="envelope">
+  <div class="meta">
+    <div class="row"><span class="k">To</span> Fireblocks — Institutional Sales &amp; Onboarding</div>
+    <div class="row"><span class="k">From</span> Niraj "Nick" Sheth · Founder, President &amp; CEO · LD Capital LLC</div>
+    <div class="row"><span class="k">CC</span> Kevan Burns · LD Capital · kevan@ldrcllc.com</div>
+    <div class="row"><span class="k">Attach</span> LDX Company Dossier · Partner One-Pager</div>
+  </div>
+  <div class="subject">LDX settlement architecture — Fireblocks for redundant institutional rails</div>
+</div>
+
+<article class="letter" id="letter-body">
+
+  <div class="brandbar">
+    <img src="../ldx-assets/logos/ld-capital.png" alt="LD Capital">
+    <div>
+      <div class="name">LDX <span style="color:var(--ldx-sky-400)">·</span> LD CAPITAL</div>
+      <div class="sub">The Loan Depot · LD Realty Capital · Since 1996</div>
+    </div>
+  </div>
+
+  <p>To the Fireblocks institutional team,</p>
+
+  <p>LD Capital LLC is a 29-year Atlanta-based commercial finance firm — <strong>$4.5B+ in commercial real estate loans</strong> originated and serviced since 1996 — now completing LDX, our modern execution and settlement platform. Institutional-grade counterparty operations are central to how LDX delivers on its promise to our clients.</p>
+
+  <p>I am reaching out because Fireblocks is the institutional wallet infrastructure that many of the counterparties we deal with — and want to deal with — operate on.</p>
+
+  <div class="highlight">
+    <strong>Where Fireblocks fits our architecture:</strong> we already have a custody arrangement executed with BitGo Trust, N.A. Fireblocks is not a replacement — it is the settlement redundancy layer, the pre-verified counterparty network, and the operational tempo we need for our 24-hour global processing operations.
+  </div>
+
+  <h3>What we would explore</h3>
+  <ul>
+    <li><strong>LD Capital institutional account</strong> on Fireblocks — sized modestly, focused first on counterparty transfers where the Fireblocks Network gives us pre-verified endpoints.</li>
+    <li><strong>MPC signing architecture</strong> for a defined portion of our operational flow, complementing our BitGo Trust primary safekeeping arrangement.</li>
+    <li><strong>Fireblocks Network integration</strong> so that when LD Capital counterparties are already on Fireblocks — investors, custodians, servicers — we can transact without whitelist-management overhead.</li>
+    <li><strong>Compliance discipline</strong> aligned with the LDX standing rules: Travel Rule, sanctions screening, and Reg-appropriate documentation on every institutional flow.</li>
+  </ul>
+
+  <h3>What we are asking</h3>
+  <p>A working conversation with your institutional sales team — thirty to sixty minutes to walk through LD Capital's operations, LDX's architecture, and the practical steps to a first Fireblocks deployment.</p>
+
+  <p>Attached: company dossier + partner one-pager. LDX status page: <a href="https://hub.unykorn.org/status">hub.unykorn.org/status</a>. Direct: 770-272-2232 · Office: kevan@ldrcllc.com.</p>
+
+  <p>Thank you for the consideration.</p>
+
+  <div class="signature">
+    <div class="name">Niraj &ldquo;Nick&rdquo; Sheth</div>
+    <div class="title">Founder, President &amp; Chief Executive Officer<br>LD Capital · The Loan Depot Lending Co., Inc.</div>
+    <div class="contact">770-272-2232 · ldrcllc.com · Atlanta, Georgia</div>
+  </div>
+
+  <div class="disclaimer">
+    This introduction is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security or investment product. Historical volume figures per LD Realty Capital company records. LD Capital LLC · Atlanta, GA.
+  </div>
+</article>
+
+<div class="action-bar">
+  <button class="btn ok" onclick="copyPlain()">Copy Plaintext</button>
+  <button class="btn primary" onclick="window.print()">Print / PDF</button>
+</div>
+
+</div>
+
+<script>
+function copyPlain() {
+  const html = document.getElementById('letter-body').innerText;
+  navigator.clipboard.writeText(html).then(() => alert('Plaintext copied to clipboard'));
+}
+</script>
+</body></html>

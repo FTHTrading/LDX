@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The LDX Lexicon · Print Edition — LD Capital</title>
+<link rel="icon" type="image/png" href="./ldx-assets/logos/ld-capital.png">
+<style>
+  @page { size: letter; margin: 0.55in 0.5in 0.55in 0.5in; }
+  :root {
+    --navy-900:#122A4E; --navy-700:#1D3E6E; --navy-500:#2E568F;
+    --sky-400:#7FB2DE; --paper:#ffffff; --ink:#1a2432; --dim:#5b6b80;
+    --line:#d8e2ee; --wash:#f2f6fb; --err:#7A1F1F;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); background: var(--paper); font-size: 10.5pt; line-height: 1.5; }
+  .screen-only { display: block; padding: 20px 40px; background: #f6f2ea; border-bottom: 1px solid var(--line); }
+  .screen-only .btn { padding: 8px 18px; background: var(--navy-700); color: #fff; text-decoration: none; font-family: 'Helvetica Neue', sans-serif; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; margin-right: 8px; display: inline-block; }
+  .screen-only .btn.plain { background: #fff; color: var(--navy-700); border: 1px solid var(--navy-700); }
+  @media print { .screen-only { display: none; } }
+
+  .booklet { max-width: 7.5in; margin: 0 auto; padding: 0 0.25in; }
+
+  /* Cover page */
+  .cover {
+    min-height: 9in;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    padding: 0 30px;
+    page-break-after: always;
+    position: relative;
+  }
+  .cover img { width: 100px; height: auto; margin-bottom: 20px; }
+  .cover .eyebrow { font-family: 'Helvetica Neue', sans-serif; font-size: 10pt; letter-spacing: 0.24em; text-transform: uppercase; color: var(--dim); margin-bottom: 14px; }
+  .cover h1 { font-family: Georgia, serif; font-size: 44pt; color: var(--navy-900); font-weight: 700; letter-spacing: -0.01em; line-height: 1.1; margin-bottom: 12px; }
+  .cover .sub { font-family: Georgia, serif; font-style: italic; color: var(--navy-500); font-size: 15pt; margin-bottom: 60px; }
+  .cover .divider { width: 60px; height: 4px; background: var(--sky-400); margin: 0 auto 26px; }
+  .cover .principle {
+    max-width: 5.5in;
+    background: var(--wash); border-left: 4px solid var(--sky-400);
+    padding: 22px 26px;
+    font-family: Georgia, serif; font-style: italic; font-size: 14pt; line-height: 1.55; color: var(--navy-700);
+    text-align: left;
+  }
+  .cover .imprint {
+    position: absolute; bottom: 0.5in; left: 0; right: 0; text-align: center;
+    font-family: 'Helvetica Neue', sans-serif; font-size: 9pt; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim);
+  }
+
+  /* Section titles */
+  h2 {
+    font-family: Georgia, serif; font-size: 20pt; color: var(--navy-900); font-weight: 700;
+    padding-bottom: 8px; border-bottom: 3px solid var(--navy-700);
+    margin: 24px 0 14px;
+  }
+  h2 .n { color: var(--sky-400); margin-right: 10px; font-size: 14pt; letter-spacing: 0.14em; }
+
+  /* Intro copy */
+  .intro {
+    padding: 30px 20px; page-break-after: always;
+  }
+  .intro p { margin-bottom: 10pt; }
+  .intro .callout {
+    background: var(--navy-900); color: #fff; padding: 20px 24px; margin: 20px 0;
+    font-family: Georgia, serif; font-style: italic;
+    border-left: 5px solid var(--sky-400);
+  }
+  .intro ol { padding-left: 20pt; margin-top: 8pt; }
+  .intro ol li { margin-bottom: 6pt; }
+
+  /* Cheat sheet page */
+  .cheat-page { page-break-after: always; }
+  .cheat-table {
+    width: 100%; border-collapse: collapse; font-size: 9.5pt;
+    margin-top: 8pt;
+  }
+  .cheat-table th {
+    background: var(--navy-700); color: #fff; text-align: left;
+    padding: 6pt 10pt;
+    font-family: 'Helvetica Neue', sans-serif; font-size: 8.5pt; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .cheat-table td {
+    padding: 5pt 10pt; border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .cheat-table .never {
+    color: var(--err); font-family: Georgia, serif;
+    text-decoration: line-through; text-decoration-color: rgba(122, 31, 31, 0.35);
+  }
+  .cheat-table .always { color: var(--navy-900); font-family: Georgia, serif; font-weight: 700; }
+  .cheat-table tr:nth-child(even) td { background: var(--wash); }
+
+  /* Term entries — two-column dictionary */
+  .terms-grid {
+    columns: 2; column-gap: 0.35in; column-rule: 1px solid var(--line);
+  }
+  .letter-anchor {
+    font-family: Georgia, serif; font-size: 22pt; color: var(--sky-400); font-weight: 700;
+    padding-bottom: 3pt; border-bottom: 1px solid var(--line);
+    margin: 12pt 0 8pt;
+    column-span: none;
+    break-inside: avoid;
+    break-before: column;
+  }
+  .letter-anchor:first-child { break-before: auto; }
+  .term-entry {
+    break-inside: avoid; page-break-inside: avoid;
+    margin-bottom: 12pt;
+  }
+  .term-entry .name {
+    font-family: Georgia, serif; font-weight: 700; color: var(--navy-900);
+    font-size: 11pt;
+  }
+  .term-entry .name .pos { font-style: italic; color: var(--dim); font-weight: 400; font-size: 9.5pt; margin-left: 4pt; }
+  .term-entry .def {
+    font-family: Georgia, serif; font-size: 9.5pt; color: var(--ink);
+    line-height: 1.45; margin-top: 2pt;
+  }
+  .term-entry .replaces {
+    font-family: 'Helvetica Neue', sans-serif; font-size: 8pt;
+    color: var(--err); margin-top: 3pt; font-style: italic;
+  }
+  .term-entry .replaces .lbl { text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-right: 4pt; font-style: normal; }
+  .term-entry .ex {
+    font-family: Georgia, serif; font-style: italic; color: var(--navy-700);
+    font-size: 9pt; line-height: 1.45; margin-top: 3pt;
+    padding-left: 6pt; border-left: 2px solid var(--sky-400);
+  }
+
+  /* Back cover / disclaimer */
+  .back-cover {
+    padding: 40px 30px; page-break-before: always;
+    text-align: center;
+  }
+  .back-cover img { width: 80px; margin-bottom: 20px; }
+  .back-cover .brand { font-family: Georgia, serif; font-weight: 700; letter-spacing: 0.18em; color: var(--navy-900); font-size: 20pt; }
+  .back-cover .sub { font-family: 'Helvetica Neue', sans-serif; font-size: 9pt; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); margin-top: 8pt; margin-bottom: 40pt; }
+  .back-cover .contact {
+    font-family: Georgia, serif; font-size: 14pt; color: var(--navy-700); font-weight: 700;
+    padding: 20pt 24pt; background: var(--wash); border-top: 3px solid var(--navy-700); border-bottom: 3px solid var(--navy-700);
+    display: inline-block; margin: 0 auto;
+  }
+  .back-cover .disc {
+    max-width: 5.5in; margin: 40pt auto 0;
+    font-family: 'Helvetica Neue', sans-serif; font-size: 8pt; color: var(--dim); line-height: 1.55;
+    text-align: left;
+  }
+</style>
+</head>
+<body>
+
+<div class="screen-only">
+  <a class="btn" href="javascript:window.print()">Print / Save as PDF</a>
+  <a class="btn plain" href="./lexicon.html">← Back to Interactive Academy</a>
+  <span style="font-family:'Helvetica Neue',sans-serif;font-size:10pt;color:#5b6b80;margin-left:12px;">Print-optimized · Letter size · 12-page booklet</span>
+</div>
+
+<div class="booklet">
+
+<!-- ═══════ COVER ═══════ -->
+<section class="cover">
+  <img src="./ldx-assets/logos/ld-capital.png" alt="LD Capital">
+  <div class="eyebrow">LDX · LD Capital LLC · Since 1996</div>
+  <h1>The LDX Lexicon</h1>
+  <div class="sub">A Professional Reference for Modern Settlement &amp; Digital Securities</div>
+  <div class="divider"></div>
+  <div class="principle">
+    Technology is never the product. Ownership, settlement, custody, compliance, and capital formation are the product. The technology is simply the infrastructure through which those functions are performed.
+  </div>
+  <div class="imprint">First Edition · Atlanta, Georgia · 770-272-2232 · ldrcllc.com</div>
+</section>
+
+<!-- ═══════ INTRO ═══════ -->
+<section class="intro">
+  <h2><span class="n">I.</span>How to Use This Reference</h2>
+  <p>LD Capital's execution platform uses technology often described elsewhere with speculative vocabulary. We do not use that vocabulary — <em>not because the technology differs, but because precision matters</em>. Every capability we offer has a proper name in banking, securities, and compliance practice.</p>
+  <p>This lexicon defines each term as we use it, notes the informal word it replaces, and shows the term in a working sentence.</p>
+
+  <div class="callout">
+    <strong>The standing rule:</strong> if a term below has a "replaces" line, the replaced word does not appear in LD Capital client materials, marketing, or conversation. When a client uses the informal word, we answer accurately — using ours.
+  </div>
+
+  <h2><span class="n">II.</span>The Five LDX Standing Rules</h2>
+  <ol>
+    <li><strong>No crypto / token / blockchain vocabulary</strong> in client-facing surfaces. Use the institutional term. Every time.</li>
+    <li><strong>No solicitation of investment.</strong> Any private program is described only as "by invitation, through official offering documents when released."</li>
+    <li><strong>Only verified claims.</strong> $4.5B+ (per LD Realty Capital records), founded 1996, four active divisions, OCC-chartered national trust bank custody arrangement executed.</li>
+    <li><strong>Every outbound piece carries the informational-purposes disclaimer.</strong></li>
+    <li><strong>Nothing goes out before Niraj Sheth approves final copy.</strong></li>
+  </ol>
+
+  <h2><span class="n">III.</span>Why This Matters</h2>
+  <p>Institutional finance is a business of trust, and trust is transmitted through language. A client, a regulator, a family office, or a broker-dealer counterparty hearing "wallet" hears one industry. Hearing "custody account" hears another. LD Capital operates in one industry — the regulated one — and our language must reflect that at every touchpoint.</p>
+  <p>The technology underneath LDX is modern and often shares mechanics with instruments described elsewhere with speculative vocabulary. That is a technical curiosity, not a description of our business. Ownership, settlement, custody, compliance, and capital formation are our business.</p>
+</section>
+
+<!-- ═══════ CHEAT SHEET ═══════ -->
+<section class="cheat-page">
+  <h2><span class="n">IV.</span>Quick Reference — Say This, Not That</h2>
+  <table class="cheat-table" id="cheat-table">
+    <thead><tr><th>Never Say</th><th>Always Say</th></tr></thead>
+    <tbody id="cheat-body"></tbody>
+  </table>
+</section>
+
+<!-- ═══════ DICTIONARY ═══════ -->
+<section>
+  <h2><span class="n">V.</span>The Dictionary</h2>
+  <div class="terms-grid" id="terms-grid"></div>
+</section>
+
+<!-- ═══════ BACK COVER ═══════ -->
+<section class="back-cover">
+  <img src="./ldx-assets/logos/ld-capital.png" alt="LD Capital">
+  <div class="brand">LDX · LD CAPITAL</div>
+  <div class="sub">The Loan Depot · LD Realty Capital · Since 1996</div>
+  <div class="contact">
+    LD Capital LLC · Atlanta, Georgia<br>
+    770-272-2232 · ldrcllc.com
+  </div>
+  <div class="disc">
+    This reference is for client education and internal use. This document describes terminology and platform capabilities; it is not an offer of securities, and it is not legal, tax, or investment advice. Securities activities are conducted only with and through appropriately registered firms. Terms describing regulated roles (broker-dealer, transfer agent, qualified custodian, ATS) refer to the registered third parties performing those roles. Historical volume figures per LD Realty Capital company records. &copy; LD Capital LLC. All rights reserved.
+  </div>
+</section>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════════════════
+// Same 52-term data as the interactive academy — kept in sync
+// ══════════════════════════════════════════════════════════════════════════════
+
+const LEX = [
+  { t:"Accredited Investor", pos:"n.", r:null, l:"A", d:"An investor meeting SEC income or net-worth thresholds (Reg D, Rule 501), eligible to participate in private securities offerings. Eligibility is verified, not self-declared, in 506(c) offerings.", e:"Participation is limited to verified accredited investors." },
+  { t:"Alternative Trading System (ATS)", pos:"n.", r:"crypto exchange · secondary token market", l:"A", d:"An SEC-regulated marketplace, operated by a registered broker-dealer, where private securities may trade after issuance.", e:"Interests may become eligible for resale on a regulated alternative trading system." },
+  { t:"Automated Settlement Instruction", pos:"n.", r:"smart contract", l:"A", d:"Pre-agreed transaction terms executed automatically by the settlement platform when verified conditions are met — a draw releasing only upon inspection sign-off, for example.", e:"The draw released the same day because the automated settlement instruction verified the inspector's certification." },
+  { t:"Book-Entry Interest", pos:"n.", r:"token · digital coin", l:"B", d:"Ownership recorded electronically on an official register rather than by paper certificate — the standard form of virtually all modern securities, including U.S. Treasuries since 1986.", e:"Investors hold book-entry interests recorded by the transfer agent." },
+  { t:"Broker-Dealer", pos:"n.", r:null, l:"B", d:"A firm registered with the SEC and FINRA to effect securities transactions. Private placements with success-based compensation require one in the chain.", e:"Distribution is conducted through a registered broker-dealer." },
+  { t:"Custody Account", pos:"n.", r:"wallet", l:"C", d:"An account at a qualified custodian holding client transaction assets, segregated from the firm's own assets.", e:"Transaction assets are held in segregated custody accounts." },
+  { t:"Collateralized Credit Facility", pos:"n.", r:"DeFi borrowing · crypto loan", l:"C", d:"A borrowing arrangement secured by pledged assets, with advance rates and collateral requirements set by the lender or venue at approval — never assumed in advance.", e:"Advance rates under a collateralized credit facility are published by the lender at approval." },
+  { t:"Compliance Gate", pos:"n.", r:null, l:"C", d:"A control requiring identity verification, sanctions screening, and eligibility confirmation to pass before any movement of value. On the LDX platform this check is structural: a transaction cannot occur without it.", e:"Every disbursement passes the compliance gate before funds move." },
+  { t:"Digital Security", pos:"n.", r:"security token · tokenized asset", l:"D", d:"A conventional security — debt, equity, or a fund interest — whose ownership record is maintained in modern electronic form with transfer restrictions enforced automatically. Regulated identically to its paper ancestor.", e:"The offering will be issued as digital securities with restrictions enforced at the record level." },
+  { t:"Digital Dollar Instrument", pos:"n.", r:"stablecoin · crypto dollars", l:"D", d:"A fully-reserved, dollar-denominated payment instrument issued under federal oversight (per 2025 federal payment-stablecoin legislation), redeemable one-for-one and used for same-day settlement.", e:"Settlement may occur by wire or by regulated digital dollar instrument, at the client's preference." },
+  { t:"Disbursement Rails", pos:"n.", r:null, l:"D", d:"The regulated payment channels — ACH, Fedwire, ISO 20022 messaging, and regulated digital settlement — through which committed funds move. Rails move money; they are never the source of it.", e:"Once the facility funds, proceeds move through our disbursement rails within the day." },
+  { t:"Dual-Record System", pos:"n.", r:null, l:"D", d:"The compliance architecture in which a registered transfer agent maintains the authoritative ownership register (the 'golden record') while the settlement ledger serves as a synchronized secondary record. A lost credential never means lost ownership.", e:"Under the dual-record system, the transfer agent can always restore an investor's position." },
+  { t:"Eligibility Verification", pos:"n.", r:"whitelisting", l:"E", d:"Confirmation — before any transfer — that a counterparty meets the offering's requirements: identity, accreditation, jurisdiction, sanctions clearance.", e:"Transfers settle only between parties that have completed eligibility verification." },
+  { t:"Golden Record", pos:"n.", r:null, l:"G", d:"The single authoritative register of ownership, maintained by the issuer or its registered transfer agent. See Dual-Record System.", e:"The transfer agent maintains the golden record of every holder." },
+  { t:"Independent Data Attestation", pos:"n.", r:"oracle", l:"I", d:"A signed, verifiable certification of an off-platform fact — an inspector's milestone sign-off, a meter reading, an appraisal value — required before dependent transactions may proceed.", e:"Each construction draw requires an independent data attestation from the site inspector." },
+  { t:"Issue / Redeem", pos:"v.", r:"mint / burn", l:"I", d:"To create interests upon subscription; to retire them upon repayment or withdrawal — the vocabulary of every fund administrator for a century.", e:"Interests are issued at subscription and redeemed at maturity." },
+  { t:"Ledger Reconciliation", pos:"n.", r:"chain verification", l:"L", d:"The process of verifying that transaction records, custody records, transfer-agent records, and banking records remain synchronized and accurate.", e:"Daily ledger reconciliation is performed between the settlement ledger and the transfer agent's records." },
+  { t:"Liquidity Venue", pos:"n.", r:"token marketplace", l:"L", d:"A regulated marketplace, trading venue, broker-dealer network, or approved transaction mechanism through which ownership interests may be transferred.", e:"Transfers may occur through an approved liquidity venue following compliance review." },
+  { t:"Limited Offering", pos:"n.", r:"private token sale", l:"L", d:"A securities offering conducted pursuant to an exemption from public registration requirements.", e:"The interests are being offered through a limited offering to eligible investors." },
+  { t:"Market Infrastructure Provider", pos:"n.", r:"protocol", l:"M", d:"A regulated or contracted service provider supporting issuance, custody, settlement, compliance, transfer, or trading functions.", e:"The market infrastructure provider supports settlement and ownership record synchronization." },
+  { t:"Membership Interest", pos:"n.", r:"governance token", l:"M", d:"An ownership interest in a limited liability company.", e:"Investors acquire membership interests in M Helen Hotel LLC." },
+  { t:"Milestone Certification", pos:"n.", r:"oracle update", l:"M", d:"Verification by an approved third party that a contractual project milestone has been completed.", e:"The verified draw required milestone certification before release." },
+  { t:"Multi-Party Authorization", pos:"n.", r:"multi-sig", l:"M", d:"A control requiring multiple independent approvals — e.g., two of three designated officers — before a transaction executes. No single individual, including any service provider, can move client assets alone.", e:"All custody movements require multi-party authorization under the account agreement." },
+  { t:"Net Asset Value (NAV) Reporting", pos:"n.", r:null, l:"N", d:"Regular, independently sourced valuation of an interest, published to the ownership register — enabling accurate pricing for subscriptions, redemptions, and collateral.", e:"NAV reporting is updated on the register from independent appraisal and audited financials." },
+  { t:"Nominee Holder", pos:"n.", r:null, l:"N", d:"A custodian, transfer agent, or intermediary that holds record title on behalf of beneficial owners.", e:"Certain interests may be held through nominee holders." },
+  { t:"Notice of Corporate Action", pos:"n.", r:"governance proposal", l:"N", d:"A formal communication regarding distributions, redemptions, voting events, reorganizations, or amendments.", e:"Investors received notice of corporate action through the transfer agent." },
+  { t:"Operating Reserve", pos:"n.", r:"treasury pool", l:"O", d:"Funds maintained for project continuity, debt service, maintenance, or contingencies.", e:"A portion of offering proceeds may be allocated to the operating reserve." },
+  { t:"Ownership Register", pos:"n.", r:"holder wallet list", l:"O", d:"The official list of holders maintained by the issuer or transfer agent.", e:"Only owners recorded on the ownership register may receive distributions." },
+  { t:"Payment-versus-Delivery Settlement (PvD)", pos:"n.", r:"atomic swap", l:"P", d:"A settlement mechanism ensuring ownership transfers only when corresponding payment is simultaneously confirmed.", e:"The transaction was completed using payment-versus-delivery settlement." },
+  { t:"Portfolio Reporting", pos:"n.", r:"wallet dashboard", l:"P", d:"Periodic reporting on investor positions, valuations, distributions, and transaction activity.", e:"Quarterly portfolio reporting will be made available through the investor portal." },
+  { t:"Position Statement", pos:"n.", r:"wallet balance", l:"P", d:"A statement confirming current ownership and transaction history.", e:"Investors may request a position statement from the transfer agent." },
+  { t:"Private Placement", pos:"n.", r:null, l:"P", d:"An offering of securities to a limited class of eligible investors under SEC Regulation D, made exclusively through official offering documents (a private placement memorandum, or PPM).", e:"Full terms will be available in the private placement memorandum." },
+  { t:"Qualified Custodian", pos:"n.", r:"crypto custodian", l:"Q", d:"A regulated institution — such as an OCC-chartered national trust bank — legally authorized to safeguard client assets under fiduciary standards, with segregation and insurance requirements.", e:"Assets are safeguarded through arrangements with an OCC-chartered qualified custodian." },
+  { t:"Record-Level Compliance", pos:"n.", r:"on-chain compliance", l:"R", d:"Compliance controls enforced directly through the ownership system.", e:"Transfer restrictions are enforced through record-level compliance." },
+  { t:"Registered Ownership", pos:"n.", r:"token holder", l:"R", d:"Ownership reflected on the official register.", e:"Only registered owners may vote on company matters." },
+  { t:"Reserve Asset", pos:"n.", r:"backing collateral", l:"R", d:"Assets maintained to support obligations, payments, or liquidity requirements.", e:"Reserve assets are maintained pursuant to program requirements." },
+  { t:"Securities Administration", pos:"n.", r:"protocol operations", l:"S", d:"The ongoing management of ownership records, distributions, reporting, and compliance obligations.", e:"Securities administration is conducted through approved service providers." },
+  { t:"Securities Servicing", pos:"n.", r:"token management", l:"S", d:"Operational support functions performed after issuance.", e:"Securities servicing includes distributions, reporting, and ownership updates." },
+  { t:"Settlement Finality", pos:"n.", r:"transaction confirmation", l:"S", d:"The point at which a transaction becomes irrevocable under governing rules.", e:"Settlement finality occurred immediately following payment verification." },
+  { t:"Settlement Ledger", pos:"n.", r:"blockchain · on-chain", l:"S", d:"The shared, tamper-evident electronic record on which transactions clear and settle — each entry time-stamped, verified, and permanent. The modern successor to batch reconciliation.", e:"Every disbursement is recorded on the settlement ledger the moment it clears." },
+  { t:"Signing Credential", pos:"n.", r:"private key", l:"S", d:"The cryptographic authorization by which a designated officer approves a transaction — the electronic equivalent of an authorized signature, governed by the same board resolutions.", e:"Signing credentials are held only by officers named in the authorized signer agreement." },
+  { t:"Subscription Proceeds", pos:"n.", r:"raise proceeds", l:"S", d:"Capital received from investors purchasing securities.", e:"Subscription proceeds remain subject to offering conditions." },
+  { t:"Transaction Authorization Matrix", pos:"n.", r:"signer permissions", l:"T", d:"The approval hierarchy defining which parties may authorize transactions.", e:"The authorization matrix requires dual approval for disbursements." },
+  { t:"Transaction Lifecycle", pos:"n.", r:"smart contract execution flow", l:"T", d:"The complete process from initiation through settlement, reconciliation, and reporting.", e:"The transaction lifecycle is documented and auditable." },
+  { t:"Transfer Agent", pos:"n.", r:null, l:"T", d:"The SEC-registered keeper of the official ownership register, responsible for recording transfers, replacing lost evidence of ownership, and administering distributions.", e:"The transfer agent maintains the golden record of every holder." },
+  { t:"Transfer Event", pos:"n.", r:"token transfer", l:"T", d:"Any approved change in ownership.", e:"Each transfer event must satisfy eligibility verification." },
+  { t:"Transfer Restriction", pos:"n.", r:null, l:"T", d:"A rule limiting who may hold or receive an interest — enforced automatically at the record level, so a non-eligible transfer simply cannot settle.", e:"Restrictions under Rule 144A are enforced automatically by the register." },
+  { t:"Underlying Asset", pos:"n.", r:"underlying token value", l:"U", d:"The property, company, loan, fund, or contractual right associated with an investment.", e:"The underlying asset is the M Helen Hotel development project." },
+  { t:"Valuation Record", pos:"n.", r:"price feed", l:"V", d:"A documented assessment of asset value prepared by qualified professionals.", e:"The valuation record shall be updated as new appraisals become available." },
+  { t:"Verification Provider", pos:"n.", r:"KYC oracle", l:"V", d:"A firm responsible for performing identity, accreditation, sanction, or eligibility reviews.", e:"The verification provider confirms investor eligibility." },
+  { t:"Verified Draw", pos:"n.", r:null, l:"V", d:"A construction disbursement released only upon independent attestation of milestone completion and simultaneous exchange of the corresponding lien waiver — payment and waiver settling as one transaction.", e:"Verified draws eliminate the pay-first, waiver-later gap entirely." },
+  { t:"Workflow Automation", pos:"n.", r:"smart-contract automation", l:"W", d:"Technology used to automate approvals, compliance checks, notifications, and settlement processing.", e:"Workflow automation reduced processing times significantly." },
+];
+
+const CHEAT = [
+  ["blockchain / on-chain",       "settlement ledger / on the ledger of record"],
+  ["blockchain protocol",         "settlement infrastructure"],
+  ["token / coin",                "digital security / book-entry interest"],
+  ["tokenization",                "digital issuance / modern book-entry securitization"],
+  ["token holder",                "registered owner"],
+  ["token transfer",              "transfer event"],
+  ["token launch",                "digital issuance"],
+  ["token marketplace",           "liquidity venue"],
+  ["token management",            "securities servicing"],
+  ["governance token",            "membership interest"],
+  ["crypto wallet",               "custody account"],
+  ["wallet balance",              "position statement"],
+  ["wallet dashboard",            "portfolio reporting"],
+  ["smart contract",              "automated settlement instruction"],
+  ["smart-contract automation",   "workflow automation"],
+  ["smart contract execution flow","transaction lifecycle"],
+  ["stablecoin",                  "regulated digital dollar instrument"],
+  ["whitelisting",                "eligibility verification"],
+  ["mint / burn",                 "issue / redeem"],
+  ["multi-sig",                   "multi-party authorization"],
+  ["private key",                 "signing credential"],
+  ["signer permissions",          "transaction authorization matrix"],
+  ["oracle",                      "independent data attestation"],
+  ["oracle update",               "milestone certification"],
+  ["KYC oracle",                  "verification provider"],
+  ["DeFi lending",                "collateralized credit facility"],
+  ["crypto exchange",             "regulated alternative trading system"],
+  ["crypto custodian",            "qualified custodian"],
+  ["atomic swap",                 "payment-versus-delivery settlement"],
+  ["treasury pool",               "operating reserve"],
+  ["backing collateral",          "reserve asset"],
+  ["price feed",                  "valuation record"],
+  ["protocol",                    "market infrastructure provider"],
+  ["protocol operations",         "securities administration"],
+  ["on-chain compliance",         "record-level compliance"],
+  ["holder wallet list",          "ownership register"],
+  ["governance proposal",         "notice of corporate action"],
+  ["chain verification",          "ledger reconciliation"],
+  ["private token sale",          "limited offering"],
+  ["underlying token value",      "underlying asset"],
+  ["raise proceeds",              "subscription proceeds"],
+  ["transaction confirmation",    "settlement finality"],
+  ["liquidity mining",            "incentive program"],
+  ["staking",                     "participation program"],
+];
+
+function esc(s) { return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[c]); }
+
+// Render cheat sheet
+const cb = document.getElementById('cheat-body');
+CHEAT.forEach(([bad, good]) => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="never">${esc(bad)}</td><td class="always">${esc(good)}</td>`;
+  cb.appendChild(tr);
+});
+
+// Render dictionary — two-column, sorted alphabetically with letter anchors
+const sorted = [...LEX].sort((a, b) => a.t.localeCompare(b.t));
+const grid = document.getElementById('terms-grid');
+let curLetter = null;
+sorted.forEach(t => {
+  if (t.l !== curLetter) {
+    curLetter = t.l;
+    const anchor = document.createElement('div');
+    anchor.className = 'letter-anchor';
+    anchor.textContent = curLetter;
+    grid.appendChild(anchor);
+  }
+  const entry = document.createElement('div');
+  entry.className = 'term-entry';
+  entry.innerHTML = `
+    <div class="name">${esc(t.t)} <span class="pos">${esc(t.pos)}</span></div>
+    <div class="def">${esc(t.d)}</div>
+    ${t.r ? `<div class="replaces"><span class="lbl">Replaces:</span>${esc(t.r)}</div>` : ''}
+    <div class="ex">"${esc(t.e)}"</div>
+  `;
+  grid.appendChild(entry);
+});
+</script>
+</body>
+</html>

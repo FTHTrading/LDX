@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LDX · LD Capital — The Execution Platform</title>
+<meta name="description" content="LDX is the execution and settlement platform of LD Capital LLC. Three decades of relationship lending. Institutional-grade safekeeping. Complete transaction transparency.">
+<meta property="og:title" content="LDX · LD Capital — The Execution Platform">
+<meta property="og:description" content="29 years, $4.5B+ closed and serviced. Now built on modern settlement infrastructure.">
+<meta property="og:image" content="./ldx-assets/logos/ld-capital.png">
+<link rel="icon" type="image/png" href="./ldx-assets/logos/ld-capital.png">
+<link rel="stylesheet" href="./brand/ldx.css">
+<style>
+  body { background: var(--ldx-cream); }
+  .ldx-wrap { max-width: 1100px; }
+
+  /* Hero */
+  .hero {
+    text-align: center; padding: 32px 20px 44px;
+    background: var(--ldx-paper); border: 1px solid var(--ldx-line);
+    border-top: 4px solid var(--ldx-navy-700);
+    margin-bottom: 32px;
+  }
+  .hero img { width: 96px; height: auto; margin-bottom: 18px; }
+  .hero h1 {
+    font-size: 44px; line-height: 1.1; margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .hero .tag {
+    font-family: var(--ldx-serif); font-style: italic; color: var(--ldx-navy-500);
+    font-size: 17px; margin-bottom: 26px;
+  }
+  .hero .stats {
+    display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+    padding: 24px 0 8px; border-top: 1px solid var(--ldx-line); margin-top: 24px;
+  }
+  .hero .stat .v {
+    font-family: var(--ldx-serif); font-size: 32px; font-weight: 700; color: var(--ldx-navy-700);
+  }
+  .hero .stat .l {
+    font-family: var(--ldx-sans); font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ldx-dim); margin-top: 4px;
+  }
+
+  /* Section divider */
+  .section-title {
+    font-family: var(--ldx-serif); font-size: 15px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ldx-navy-700);
+    border-left: 4px solid var(--ldx-sky-400); padding-left: 10px;
+    margin: 40px 0 16px;
+  }
+
+  /* Tile grid */
+  .tile-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 18px;
+  }
+  .tile {
+    display: block; text-decoration: none;
+    background: var(--ldx-paper); border: 1px solid var(--ldx-line);
+    border-left: 3px solid var(--ldx-sky-400);
+    padding: 24px 26px;
+    transition: all 0.18s ease;
+  }
+  .tile:hover {
+    border-left-color: var(--ldx-navy-700);
+    box-shadow: 0 6px 24px rgba(18, 42, 78, 0.10);
+    transform: translateY(-2px);
+  }
+  .tile.featured { border-top: 3px solid var(--ldx-navy-700); border-left-color: var(--ldx-navy-700); }
+  .tile-eyebrow {
+    font-family: var(--ldx-sans); font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ldx-navy-500);
+  }
+  .tile-title {
+    font-family: var(--ldx-serif); font-size: 22px; color: var(--ldx-navy-900);
+    font-weight: 700; margin: 6px 0 8px; line-height: 1.25;
+  }
+  .tile-desc {
+    font-family: var(--ldx-serif); font-size: 13.5px; color: var(--ldx-ink);
+    line-height: 1.55; margin-bottom: 10px;
+  }
+  .tile-meta {
+    font-family: var(--ldx-sans); font-size: 10.5px; letter-spacing: 0.06em;
+    color: var(--ldx-dim); text-transform: uppercase;
+    padding-top: 8px; border-top: 1px dotted var(--ldx-line);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .tile-arrow { color: var(--ldx-sky-400); font-size: 18px; }
+  .tile:hover .tile-arrow { color: var(--ldx-navy-700); transform: translateX(4px); transition: all 0.18s; }
+
+  .external-tile { border-left-color: var(--ldx-navy-500); }
+
+  /* Principle callout */
+  .principle {
+    background: var(--ldx-navy-900); color: #fff;
+    padding: 32px 36px; margin: 40px 0;
+    border-left: 6px solid var(--ldx-sky-400);
+    font-family: var(--ldx-serif); font-style: italic; font-size: 18px; line-height: 1.55;
+  }
+  .principle strong { font-style: normal; color: var(--ldx-sky-200); font-weight: 700; }
+  .principle .attrib {
+    display: block; margin-top: 14px; font-style: normal;
+    font-family: var(--ldx-sans); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ldx-sky-200);
+  }
+
+  /* Contact ribbon */
+  .contact-ribbon {
+    background: var(--ldx-navy-900); color: #fff; padding: 26px 36px;
+    display: flex; justify-content: space-between; align-items: center; gap: 30px;
+    margin-top: 40px;
+  }
+  .contact-ribbon .to {
+    font-family: var(--ldx-serif); font-size: 20px;
+  }
+  .contact-ribbon .sub { font-size: 12px; color: var(--ldx-sky-200); margin-top: 4px; }
+  .contact-ribbon .phone {
+    font-family: var(--ldx-serif); font-size: 30px; font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 32px; }
+    .hero .stats { gap: 20px; }
+    .contact-ribbon { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ldx-wrap">
+
+<header class="ldx-brandbar">
+  <img class="ldx-mark" src="./ldx-assets/logos/ld-capital.png" alt="LD Capital" style="height:56px;width:auto">
+  <div>
+    <div class="ldx-wordmark">LDX <span style="color:var(--ldx-sky-400)">·</span> LD CAPITAL</div>
+    <div class="ldx-tag">The Loan Depot · LD Realty Capital · Since 1996 · Atlanta, GA</div>
+  </div>
+  <div class="ldx-right">
+    <div class="ldx-eyebrow">Direct Line</div>
+    <div style="font-family:var(--ldx-serif);color:var(--ldx-navy-700);font-weight:700;font-size:18px">770-272-2232</div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="hero">
+  <img src="./ldx-assets/logos/ld-capital.png" alt="LD Capital">
+  <h1>LDX <span style="color:var(--ldx-sky-400)">·</span> The Execution Platform</h1>
+  <p class="tag">Three decades of relationship lending. A new generation of execution.</p>
+  <div class="stats">
+    <div class="stat"><div class="v">$4.5B<sup style="font-size:18px">+</sup></div><div class="l">Closed &amp; serviced since 1996</div></div>
+    <div class="stat"><div class="v">29 yrs</div><div class="l">Serving hoteliers &amp; owners</div></div>
+    <div class="stat"><div class="v">50</div><div class="l">States served</div></div>
+    <div class="stat"><div class="v">24 hr</div><div class="l">Global processing</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section-title">Start Here — For Clients &amp; Partners</div>
+<div class="tile-grid">
+
+  <a class="tile featured" href="./status.html">
+    <div class="tile-eyebrow">Public · Live</div>
+    <div class="tile-title">LDX Status Page</div>
+    <div class="tile-desc">The five pillars of LDX — faster closings, institutional-grade safekeeping, complete transparency, same team, same standards. Full program listing.</div>
+    <div class="tile-meta"><span>Open →</span><span class="tile-arrow">→</span></div>
+  </a>
+
+  <a class="tile featured" href="./letter.html">
+    <div class="tile-eyebrow">From Niraj Sheth · Print-Ready</div>
+    <div class="tile-title">The Client Letter</div>
+    <div class="tile-desc">"Twenty-nine years. Three recessions. More than $4.5 billion in loans originated, underwritten, closed, and serviced. And now — our largest step forward yet."</div>
+    <div class="tile-meta"><span>Read the letter</span><span class="tile-arrow">→</span></div>
+  </a>
+
+  <a class="tile featured" href="./lexicon.html">
+    <div class="tile-eyebrow">Interactive Learning</div>
+    <div class="tile-title">The LDX Lexicon Academy</div>
+    <div class="tile-desc">52 institutional terms · flashcards · 3-mode quiz with streak tracker · completion certificate. Master the language of modern settlement and digital securities.</div>
+    <div class="tile-meta"><span>Take the course</span><span class="tile-arrow">→</span></div>
+  </a>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section-title">Reference &amp; Downloads</div>
+<div class="tile-grid">
+
+  <a class="tile" href="./lexicon-print.html">
+    <div class="tile-eyebrow">PDF Booklet · 12 pages</div>
+    <div class="tile-title">The LDX Lexicon — Print Edition</div>
+    <div class="tile-desc">Cover · guiding principle · five standing rules · 44-pair "Say This, Not That" cheat sheet · two-column dictionary of all 52 terms with definitions and examples. Letter-size, ready to print or save as PDF.</div>
+    <div class="tile-meta"><span>Open printable booklet</span><span class="tile-arrow">→</span></div>
+  </a>
+
+  <a class="tile" href="./assets.html">
+    <div class="tile-eyebrow">Asset Vault · Logos + PDFs + Audio</div>
+    <div class="tile-title">Public Asset Library</div>
+    <div class="tile-desc">Official LD Capital + LD Realty Capital marks. Client announcement letter, new-programs brochure, company dossier, Asian Hospitality feature. Four voice narrations on the LDX language discipline.</div>
+    <div class="tile-meta"><span>Browse the vault</span><span class="tile-arrow">→</span></div>
+  </a>
+
+  <a class="tile" href="./outreach.html">
+    <div class="tile-eyebrow">Templates · 12 Ready-to-Send</div>
+    <div class="tile-title">Outreach Catalog</div>
+    <div class="tile-desc">Six partner introductions (Aave Horizon, Centrifuge, Ondo, Chainlink, Anchorage, Fireblocks) · universal partner one-pager · family office intro · client quarterly update · RM refi outreach · AAHOA press release. Every template enforces the five LDX standing rules.</div>
+    <div class="tile-meta"><span>Browse templates</span><span class="tile-arrow">→</span></div>
+  </a>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="principle">
+  <strong>The LDX Guiding Principle:</strong> Technology is never the product. Ownership, settlement, custody, compliance, and capital formation are the product. The technology is simply the infrastructure through which those functions are performed.
+  <span class="attrib">— The LDX Lexicon, First Edition</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section-title">The Programs — Expanded &amp; Rolling Out</div>
+<div class="tile-grid">
+
+  <div class="tile">
+    <div class="tile-eyebrow">For hotel developers · franchise operators · AAHOA</div>
+    <div class="tile-title">Hospitality Construction-to-Perm</div>
+    <div class="tile-desc">Ground-up and conversion financing for flagged hotel projects. Milestone-verified draws, automated lien-waiver exchange, real-time transparency. Our SpringHill Suites by Marriott flagship in Helen, GA runs on this platform.</div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-eyebrow">For small &amp; rural hotel owners · small businesses</div>
+    <div class="tile-title">SBA &amp; USDA + Federal Energy Incentives</div>
+    <div class="tile-desc">Our Loan Depot SBA franchise paired with full federal-incentive analysis: solar ITC, long-runway battery-storage credits, USDA rural energy grants, accelerated depreciation. Deadlines tracked so nothing is left on the table.</div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-eyebrow">For storm- and disaster-affected owners</div>
+    <div class="tile-title">Restoration &amp; Insurance-Recovery Lending</div>
+    <div class="tile-desc">Bridge financing paired with professional claim-documentation support: code-compliance analysis, valuation review, organized evidence packages. Construction draws released against verified milestones.</div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-eyebrow">For accredited investors · by invitation</div>
+    <div class="tile-title">Private CRE Income Opportunities</div>
+    <div class="tile-desc">A private program preparing for release — professionally underwritten commercial real estate debt, administered with registered securities professionals and institutional safekeeping. Details available exclusively through official offering documents when released.</div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-eyebrow">For international families · global investors</div>
+    <div class="tile-title">Bridge to USA — EB-5 Investment Immigration</div>
+    <div class="tile-desc">A guided path to U.S. permanent residency: an $800,000 qualifying investment, professionally structured and administered, with LD FinMave supporting clients across India and global emerging markets around the clock.</div>
+  </div>
+
+  <a class="tile external-tile" href="https://github.com/FTHTrading/LDX" target="_blank" rel="noopener">
+    <div class="tile-eyebrow">Open Source · Rust · Post-Quantum</div>
+    <div class="tile-title">LDX Repository → GitHub</div>
+    <div class="tile-desc">The Lamport Digital Exchange core engine — post-quantum signature core, PolicyGuard 5-gate adjudication, 2-of-3 non-custodial vault types with BitGo-alone-forbidden invariant, RWA pipeline state machine. 49 tests, green CI.</div>
+    <div class="tile-meta"><span>github.com/FTHTrading/LDX</span><span class="tile-arrow">↗</span></div>
+  </a>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="contact-ribbon">
+  <div>
+    <div class="to">Talk to your relationship manager<br>— or call us directly.</div>
+    <div class="sub">LD Capital LLC · Atlanta, Georgia · ldrcllc.com</div>
+  </div>
+  <div class="phone">770-272-2232</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<footer class="ldx-disclaimer">
+  This site announces business programs and capabilities for informational purposes only. It is not an offer to sell or a solicitation of an offer to buy any security. Any future private investment program will be made exclusively through official offering documents to investors who meet applicable eligibility and verification requirements, and nothing herein constitutes such an offering. All loans subject to underwriting and credit approval. Tax outcomes depend on individual circumstances and require review by a licensed tax professional; federal incentive programs are subject to statutory deadlines and eligibility rules. Historical figures per LD Realty Capital company records and published press. Securities activities are conducted only with and through appropriately registered firms. Terms describing regulated roles (broker-dealer, transfer agent, qualified custodian, ATS) refer to the registered third parties performing those roles. &copy; LD Capital LLC.
+</footer>
+
+</div>
+
+</body>
+</html>
